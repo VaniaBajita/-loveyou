@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vania Bajita ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      background: url('https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #video-fondo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      display: none;
+    }
+
+    #mensaje-central {
+      font-size: 28px;
+      color: #d63384;
+      background: rgba(255,255,255,0.8);
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      font-weight: bold;
+      animation: bounce 1.5s infinite;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .botones-cancion {
+      margin-top: 30px;
+    }
+
+    .botones-cancion button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ffb3c6;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .botones-cancion button:hover {
+      background-color: #ff6f91;
+    }
+
+    #bubbles-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .text-bubble {
+      position: absolute;
+      font-size: 18px;
+      font-family: 'Cursive', sans-serif;
+      color: #d63384;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px 20px;
+      border-radius: 25px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: floatText 8s ease-in-out forwards;
+      white-space: nowrap;
+    }
+
+    @keyframes floatText {
+      0% { opacity: 0; transform: scale(0.5) translateY(0px); }
+      50% { opacity: 1; transform: scale(1.2) translateY(-50px); }
+      100% { opacity: 0; transform: scale(1) translateY(-100px); }
+    }
+
+    @media (max-width: 768px) {
+      #mensaje-central {
+        font-size: 22px;
+        padding: 16px;
+      }
+
+      .botones-cancion button {
+        font-size: 16px;
+        padding: 8px 16px;
+      }
+
+      .text-bubble {
+        font-size: 16px;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video de fondo -->
+  <video id="video-fondo" autoplay loop muted>
+    <source id="video-source" src="" type="video/mp4">
+    Tu navegador no soporta videos HTML5.
+  </video>
+
+  <!-- Texto central (fijo) -->
+  <div id="mensaje-central">Vania, I Love You ❤️</div>
+
+  <!-- Botones de canciones -->
+  <div class="botones-cancion">
+    <button onclick="cambiarCancion('flawless.mp3', 'video flawless.mp4')">Flawless</button>
+    <button onclick="cambiarCancion('daylight.mp3', 'video daylight.mp4')">Daylight</button>
+    <button onclick="cambiarCancion('nervous.mp3', 'video nervous.mp4')">Nervous</button>
+    <button onclick="cambiarCancion('U&I.mp3', 'video U&I.mp4')">U&I</button>
+    <button onclick="reiniciarVista()">atrasito</button>
+  </div>
+
+  <!-- Reproductor de audio -->
+  <audio id="audio-player" autoplay loop></audio>
+
+  <!-- Contenedor de burbujas -->
+  <div id="bubbles-text"></div>
+
+  <!-- Script -->
+  <script>
+    const mensajes = [
+      "se te quiere ❤️",
+      "Gracias por ser como eres 🌟",
+      "Eres muy buena amiga 💕",
+      "nunca cambies🥰",
+      "no me caes mal xd 💖",
+      "eres inteligente 💫",
+      "you are the best 😍",
+      "gracias por enseñarme APA ✨",
+      "Eres chevere 💭",
+      "Vania bajita 💘",
+      "Me encanta tu sonrisa🤩"
+    ];
+
+    const frasesPorCancion = {
+
+      "flawless.mp3": "your only flaw🚩",
+      "daylight.mp3": "Your smile is than☀️",
+      "nervous.mp3": "when you around me😵‍💫",
+      "U&I.mp3": "?????U&I?😼"
+    };
+
+    function createTextBubble() {
+      const bubble = document.createElement("div");
+      bubble.className = "text-bubble";
+      bubble.innerText = mensajes[Math.floor(Math.random() * mensajes.length)];
+      const left = Math.random() * 80 + 10;
+      const top = Math.random() * 80 + 10;
+      bubble.style.left = left + "vw";
+      bubble.style.top = top + "vh";
+      document.getElementById("bubbles-text").appendChild(bubble);
+      setTimeout(() => bubble.remove(), 8000);
+    }
+
+    setInterval(createTextBubble, 500);
+
+    // Cambia canción y video
+    function cambiarCancion(audioSrc, videoSrc) {
+      const video = document.getElementById("video-fondo");
+      const source = document.getElementById("video-source");
+      source.src = videoSrc;
+      video.load();
+      video.style.display = "block";
+
+      const audio = document.getElementById("audio-player");
+      audio.src = audioSrc;
+      audio.play();
+
+      // Cambiar mensaje central con frase personalizada
+      const mensaje = frasesPorCancion[audioSrc] || "🎶 Reproduciendo algo especial...";
+      document.getElementById("mensaje-central").innerText = mensaje;
+    }
+
+    // Restaura fondo y silencio
+    function reiniciarVista() {
+      const video = document.getElementById("video-fondo");
+      video.style.display = "none";
+      video.pause();
+      video.currentTime = 0;
+
+      const audio = document.getElementById("audio-player");
+      audio.pause();
+      audio.src = "";
+
+      // Restaurar mensaje original
+      document.getElementById("mensaje-central").innerText = "Vania, I Love You ❤️";
+    }
+  </script>
+
+</body>
+</html>
