@@ -5,11 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vania Bajita ❤️</title>
   <style>
+    :root {
+      --primary-color: #d63384;
+      --accent-color: #ffd1dc;
+      --glass-bg: rgba(255, 255, 255, 0.2); 
+      --glass-border: rgba(255, 255, 255, 0.4);
+    }
+
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100vh;
+      /* Fondo original de los corazones */
       background: url('https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg') no-repeat center center;
       background-size: cover;
       background-attachment: fixed;
@@ -21,52 +29,135 @@
       align-items: center;
     }
 
-    #video-fondo {
-      position: fixed;
+    /* Capa dinámica que cambia de color según la canción */
+    #bg-overlay {
+      position: absolute;
       top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-      display: none;
+      width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0);
+      z-index: 0;
+      transition: all 1.5s ease-in-out;
+      pointer-events: none;
+    }
+
+    /* Colores por canción */
+    .bg-220 { background: rgba(28, 58, 138, 0.4) !important; }
+    .bg-505 { background: rgba(3, 105, 161, 0.4) !important; }
+    .bg-bulls { background: rgba(82, 82, 91, 0.5) !important; }
+    .bg-consume { background: rgba(63, 14, 19, 0.4) !important; }
+    .bg-daylight { background: linear-gradient(45deg, rgba(255, 223, 137, 0.4), rgba(255, 183, 178, 0.4)) !important; }
+    .bg-eres-tu { background: rgba(167, 243, 208, 0.3) !important; }
+    .bg-gimme { background: rgba(217, 70, 239, 0.3) !important; }
+    .bg-her { background: rgba(232, 121, 249, 0.3) !important; }
+    .bg-sorry { background: rgba(161, 161, 170, 0.4) !important; }
+    .bg-love { background: rgba(249, 115, 22, 0.3) !important; }
+    .bg-red { background: rgba(185, 28, 28, 0.4) !important; }
+    .bg-wanna { background: rgba(55, 65, 81, 0.5) !important; }
+    .bg-melting { background: rgba(254, 205, 211, 0.4) !important; }
+    .bg-my-love { background: rgba(82, 82, 91, 0.4) !important; }
+    .bg-nda { background: rgba(34, 197, 94, 0.3) !important; }
+    .bg-out { background: rgba(134, 239, 172, 0.3) !important; }
+    .bg-sienna { background: rgba(244, 114, 182, 0.3) !important; }
+    .bg-sweater { background: rgba(209, 213, 219, 0.4) !important; }
+    .bg-falling { background: rgba(233, 213, 255, 0.4) !important; }
+    .bg-wildflower { background: rgba(163, 230, 53, 0.3) !important; }
+
+    /* Contenedor compacto y luminoso en el centro */
+    .glass-container {
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(2px); 
+      -webkit-backdrop-filter: blur(2px);
+      padding: 30px 40px;
+      border-radius: 30px;
+      border: 2px solid;
+      border-image: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 209, 220, 0.6)) 1;
+      box-shadow: 0 10px 40px rgba(255, 182, 193, 0.4), 0 0 20px rgba(255, 255, 255, 0.2);
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+      animation: gentle-float 4s infinite ease-in-out;
+    }
+
+    @keyframes gentle-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     #mensaje-central {
       font-size: 28px;
-      color: #d63384;
-      background: rgba(255,255,255,0.8);
-      padding: 20px 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      font-weight: bold;
-      animation: bounce 1.5s infinite;
-      transition: all 0.3s ease;
-      text-align: center;
+      color: #b01c64;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
+      text-shadow: 2px 2px 4px rgba(255,255,255,0.7);
+      animation: gentle-bounce 3s infinite ease-in-out;
     }
 
-    @keyframes bounce {
+    @keyframes gentle-bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+      50% { transform: translateY(-10px); }
     }
 
-    .botones-cancion {
-      margin-top: 30px;
-    }
-
-    .botones-cancion button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 18px;
-      background-color: #ffb3c6;
-      color: white;
-      border: none;
-      border-radius: 10px;
+    /* Estilos del seleccionador (Dropdown) */
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: bold;
+      color: var(--primary-color);
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 2px solid white;
+      border-radius: 15px;
+      outline: none;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
     }
 
-    .botones-cancion button:hover {
-      background-color: #ff6f91;
+    select:hover {
+      background-color: white;
+      border-color: var(--accent-color);
+    }
+
+    select:focus {
+      border-color: var(--primary-color);
+    }
+
+    /* Reproductor de audio nativo */
+    audio {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      outline: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn-revertir {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+      border: 2px solid white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn-revertir:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(214, 51, 132, 0.4);
     }
 
     #bubbles-text {
@@ -75,142 +166,209 @@
       height: 100%;
       pointer-events: none;
       overflow: hidden;
-      z-index: 1;
+      z-index: 1; 
     }
 
     .text-bubble {
       position: absolute;
-      font-size: 18px;
-      font-family: 'Cursive', sans-serif;
-      color: #d63384;
-      background-color: rgba(255, 255, 255, 0.7);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--primary-color);
+      background: rgba(255, 255, 255, 0.85);
       padding: 10px 20px;
-      border-radius: 25px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: floatText 8s ease-in-out forwards;
+      border-radius: 30px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      animation: floatText 9s linear forwards;
       white-space: nowrap;
     }
 
-    @keyframes floatText {
-      0% { opacity: 0; transform: scale(0.5) translateY(0px); }
-      50% { opacity: 1; transform: scale(1.2) translateY(-50px); }
-      100% { opacity: 0; transform: scale(1) translateY(-100px); }
+    .music-note {
+      position: absolute;
+      font-size: 26px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+      animation: floatNote 6s ease-in forwards;
+      z-index: 1;
     }
 
-    @media (max-width: 768px) {
-      #mensaje-central {
-        font-size: 22px;
-        padding: 16px;
-      }
+    @keyframes floatText {
+      0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1.1) translateY(-120px); }
+    }
 
-      .botones-cancion button {
-        font-size: 16px;
-        padding: 8px 16px;
-      }
-
-      .text-bubble {
-        font-size: 16px;
-        padding: 8px 16px;
-      }
+    @keyframes floatNote {
+      0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
+      20% { opacity: 1; transform: translateY(-20px) rotate(15deg) scale(1.2); }
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-150px) rotate(-15deg) scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Video de fondo -->
-  <video id="video-fondo" autoplay loop muted>
-    <source id="video-source" src="" type="video/mp4">
-    Tu navegador no soporta videos HTML5.
-  </video>
+  <div id="bg-overlay"></div>
 
-  <!-- Texto central (fijo) -->
-  <div id="mensaje-central">Vania, I Love You ❤️</div>
+  <div class="glass-container">
+    <div id="mensaje-central">Vania, I Love You ❤️</div>
 
-  <!-- Botones de canciones -->
-  <div class="botones-cancion">
-    <button onclick="cambiarCancion('flawless.mp3', 'video flawless.mp4')">Flawless</button>
-    <button onclick="cambiarCancion('daylight.mp3', 'video daylight.mp4')">Daylight</button>
-    <button onclick="cambiarCancion('nervous.mp3', 'video nervous.mp4')">Nervous</button>
-    <button onclick="cambiarCancion('U&I.mp3', 'video U&I.mp4')">U&I</button>
-    <button onclick="reiniciarVista()">atrasito</button>
+    <select id="song-selector" onchange="cambiarCancionSelect()">
+      <option value="">✨ Selecciona una canción...</option>
+      <option value="220">220</option>
+      <option value="505">505</option>
+      <option value="BULLS IN THE BRONX">BULLS IN THE BRONX</option>
+      <option value="CONSUME">CONSUME</option>
+      <option value="DAYLIGHT">DAYLIGHT</option>
+      <option value="ERES TÚ">ERES TÚ</option>
+      <option value="GIMME LOVE">GIMME LOVE</option>
+      <option value="HER">HER</option>
+      <option value="I LOVE YOU,I'M SORRY">I LOVE YOU, I'M SORRY</option>
+      <option value="I LOVEEE">I LOVEEE</option>
+      <option value="I SEE RED">I SEE RED</option>
+      <option value="I WANNA BE YOUR">I WANNA BE YOUR</option>
+      <option value="MELTING">MELTING</option>
+      <option value="MY LOVE MINE">MY LOVE MINE</option>
+      <option value="NDA">NDA</option>
+      <option value="OUT OF MY LEAGUE">OUT OF MY LEAGUE</option>
+      <option value="SIENNA">SIENNA</option>
+      <option value="SWEATER WEATHER">SWEATER WEATHER</option>
+      <option value="TIWFILFL">TIWFILFL</option>
+      <option value="WILDFLOWER">WILDFLOWER</option>
+    </select>
+
+    <audio id="audio-player" controls loop></audio>
+
+    <button class="btn-revertir" onclick="reiniciarVista()">Atrasito 🔙</button>
   </div>
 
-  <!-- Reproductor de audio -->
-  <audio id="audio-player" autoplay loop></audio>
-
-  <!-- Contenedor de burbujas -->
   <div id="bubbles-text"></div>
 
-  <!-- Script -->
   <script>
-    const mensajes = [
-      "se te quiere ❤️",
-      "Gracias por ser como eres 🌟",
-      "Eres muy buena amiga 💕",
-      "nunca cambies🥰",
-      "no me caes mal xd 💖",
-      "eres inteligente 💫",
-      "you are the best 😍",
-      "gracias por enseñarme APA ✨",
-      "Eres chevere 💭",
-      "Vania bajita 💘",
-      "Me encanta tu sonrisa🤩"
-    ];
-
-    const frasesPorCancion = {
-
-      "flawless.mp3": "your only flaw🚩",
-      "daylight.mp3": "Your smile is than☀️",
-      "nervous.mp3": "when you around me😵‍💫",
-      "U&I.mp3": "?????U&I?😼"
+    // Configuración de las canciones, fondos, mensajes fijos Y EMOJIS
+    const datosCanciones = {
+      "220": { mp3: "220.mp3", fondoClass: "bg-220", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🪐", "💙", "🛸"] },
+      "505": { mp3: "505.mp3", fondoClass: "bg-505", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🕰️", "🤍", "🎸"] },
+      "BULLS IN THE BRONX": { mp3: "BULLS IN THE BRONX.mp3", fondoClass: "bg-bulls", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🤘", "🎸", "🖤", "🌹"] },
+      "CONSUME": { mp3: "CONSUME.mp3", fondoClass: "bg-consume", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌙", "🍷", "🖤", "🔥"] },
+      "DAYLIGHT": { mp3: "DAYLIGHT.mp3", fondoClass: "bg-daylight", fraseCentral: "iloveyoualotsoverymuch", emojis: ["☀️", "💛", "🌅"] },
+      "ERES TÚ": { mp3: "ERES TÚ.mp3", fondoClass: "bg-eres-tu", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌻", "💖", "🌷"] },
+      "GIMME LOVE": { mp3: "GIMME LOVE.mp3", fondoClass: "bg-gimme", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🚀", "❤️", "💫", "🏃‍♂️"] },
+      "HER": { mp3: "HER.mp3", fondoClass: "bg-her", fraseCentral: "iloveyoualotsoverymuch", emojis: ["👑", "💖", "🌟"] },
+      "I LOVE YOU,I'M SORRY": { mp3: "I LOVE YOU,I'M SORRY.mp3", fondoClass: "bg-sorry", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🥺", "🎀", "🩹"] },
+      "I LOVEEE": { mp3: "I LOVEEE.mp3", fondoClass: "bg-love", fraseCentral: "iloveyoualotsoverymuch", emojis: ["💖", "🔥", "😻"] },
+      "I SEE RED": { mp3: "I SEE RED.mp3", fondoClass: "bg-red", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🔥", "🌹", "💋"] },
+      "I WANNA BE YOUR": { mp3: "I WANNA BE YOUR.mp3", fondoClass: "bg-wanna", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🖤", "⛓️", "🎸", "🔥"] },
+      "MELTING": { mp3: "MELTING.mp3", fondoClass: "bg-melting", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🫠", "🍦", "🤎", "🌙"] },
+      "MY LOVE MINE": { mp3: "MY LOVE MINE.mp3", fondoClass: "bg-my-love", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌙", "🤍", "🎹"] },
+      "NDA": { mp3: "NDA.mp3", fondoClass: "bg-nda", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🕶️", "🖤", "🤫", "🌃"] },
+      "OUT OF MY LEAGUE": { mp3: "OUT OF MY LEAGUE.mp3", fondoClass: "bg-out", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🕺", "💙", "🌟"] },
+      "SIENNA": { mp3: "SIENNA.mp3", fondoClass: "bg-sienna", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌅", "🧡", "🍸"] },
+      "SWEATER WEATHER": { mp3: "SWEATER WEATHER.mp3", fondoClass: "bg-sweater", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🧥", "🌧️", "🖤", "🌲"] },
+      "TIWFILFL": { mp3: "TIWFILFL.mp3", fondoClass: "bg-falling", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🎹", "💖", "⏳"] },
+      "WILDFLOWER": { mp3: "WILDFLOWER.mp3", fondoClass: "bg-wildflower", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌸", "🌼", "🌿", "💚"] }
     };
 
+    const mensajes = [
+      "I love you! ❤️",
+      "Gracias por ser como eres 🌟",
+      "Eres mi dele favorita 💕",
+      "Nunca cambies 🥰",
+      "Te adoro 💖",
+      "You are the best 😍",
+      "Me encanta tu sonrisa 🤩",
+      "Vania bajita 💘",
+      "Siempre juntos ✨",
+      "Gracias por enseñarme APA 💭",
+      "Gracias por no fallarme amiga💫",
+      "No me caes tan mal xd 👻"
+    ];
+
+    let isPlayingMusic = false;
+    const baseEmojis = ["🎵", "🎶", "✨", "❤️"]; 
+    let currentEmojis = [...baseEmojis]; 
+
+    // Crear burbujas de texto
     function createTextBubble() {
       const bubble = document.createElement("div");
       bubble.className = "text-bubble";
       bubble.innerText = mensajes[Math.floor(Math.random() * mensajes.length)];
-      const left = Math.random() * 80 + 10;
-      const top = Math.random() * 80 + 10;
-      bubble.style.left = left + "vw";
-      bubble.style.top = top + "vh";
+      
+      bubble.style.left = (Math.random() * 80 + 5) + "vw";
+      bubble.style.top = (Math.random() * 80 + 10) + "vh"; 
+
       document.getElementById("bubbles-text").appendChild(bubble);
-      setTimeout(() => bubble.remove(), 8000);
+      
+      setTimeout(() => bubble.remove(), 9000);
     }
 
-    setInterval(createTextBubble, 500);
+    // Crear notas/emojis cuando suena algo
+    function createMusicNote() {
+      if (!isPlayingMusic) return;
+      const note = document.createElement("div");
+      note.className = "music-note";
+      
+      note.innerText = currentEmojis[Math.floor(Math.random() * currentEmojis.length)];
+      
+      note.style.left = (Math.random() * 80 + 5) + "vw";
+      note.style.top = (Math.random() * 20 + 80) + "vh"; 
+      
+      document.getElementById("bubbles-text").appendChild(note);
 
-    // Cambia canción y video
-    function cambiarCancion(audioSrc, videoSrc) {
-      const video = document.getElementById("video-fondo");
-      const source = document.getElementById("video-source");
-      source.src = videoSrc;
-      video.load();
-      video.style.display = "block";
+      setTimeout(() => note.remove(), 6000);
+    }
 
+    setInterval(createTextBubble, 1500);
+    setInterval(createMusicNote, 600); 
+
+    // Función que se activa al elegir una canción
+    function cambiarCancionSelect() {
+      const selector = document.getElementById("song-selector");
+      const cancionElegida = selector.value;
+      
+      if (!cancionElegida) {
+        reiniciarVista();
+        return;
+      }
+
+      const info = datosCanciones[cancionElegida];
       const audio = document.getElementById("audio-player");
-      audio.src = audioSrc;
+      const overlay = document.getElementById("bg-overlay");
+      const mensajeCentral = document.getElementById("mensaje-central");
+
+      // Reproducir
+      audio.src = info.mp3;
       audio.play();
+      isPlayingMusic = true;
 
-      // Cambiar mensaje central con frase personalizada
-      const mensaje = frasesPorCancion[audioSrc] || "🎶 Reproduciendo algo especial...";
-      document.getElementById("mensaje-central").innerText = mensaje;
+      // Cambiar texto
+      mensajeCentral.innerText = info.fraseCentral;
+
+      // Cambiar fondo superpuesto
+      overlay.className = ""; 
+      overlay.classList.add(info.fondoClass);
+
+      // Juntar emojis
+      currentEmojis = info.emojis.concat(baseEmojis);
     }
 
-    // Restaura fondo y silencio
+    // Botón Atrasito
     function reiniciarVista() {
-      const video = document.getElementById("video-fondo");
-      video.style.display = "none";
-      video.pause();
-      video.currentTime = 0;
-
       const audio = document.getElementById("audio-player");
+      const overlay = document.getElementById("bg-overlay");
+      const mensajeCentral = document.getElementById("mensaje-central");
+      const selector = document.getElementById("song-selector");
+
       audio.pause();
       audio.src = "";
+      isPlayingMusic = false;
+      selector.value = ""; 
 
-      // Restaurar mensaje original
-      document.getElementById("mensaje-central").innerText = "Vania, I Love You ❤️";
+      mensajeCentral.innerText = "Vania, I Love You ❤️";
+      overlay.className = ""; 
+      
+      currentEmojis = [...baseEmojis];
     }
   </script>
-
 </body>
 </html>
