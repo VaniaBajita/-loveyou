@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vania Bajita ❤️</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+  
+  <meta name="description" content="Vaniabajita musiquitas y más ✨" />
+  <meta property="og:title" content="Vania Bajita ❤️" />
+  <meta property="og:description" content="Vaniabajita musiquitas y más ✨" />
+  <meta property="og:image" content="https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg" />
+
   <style>
     :root {
       --primary-color: #d63384;
@@ -17,7 +25,6 @@
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100vh;
-      /* Fondo original de los corazones */
       background: url('https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg') no-repeat center center;
       background-size: cover;
       background-attachment: fixed;
@@ -29,7 +36,6 @@
       align-items: center;
     }
 
-    /* Capa dinámica que cambia de color según la canción */
     #bg-overlay {
       position: absolute;
       top: 0; left: 0;
@@ -62,7 +68,6 @@
     .bg-falling { background: rgba(233, 213, 255, 0.4) !important; }
     .bg-wildflower { background: rgba(163, 230, 53, 0.3) !important; }
 
-    /* Contenedor compacto y luminoso en el centro */
     .glass-container {
       z-index: 2;
       display: flex;
@@ -95,6 +100,8 @@
       margin-bottom: 25px;
       text-shadow: 2px 2px 4px rgba(255,255,255,0.7);
       animation: gentle-bounce 3s infinite ease-in-out;
+      cursor: pointer; 
+      user-select: none;
     }
 
     @keyframes gentle-bounce {
@@ -102,7 +109,6 @@
       50% { transform: translateY(-10px); }
     }
 
-    /* Estilos del seleccionador (Dropdown) */
     select {
       width: 100%;
       padding: 12px;
@@ -129,7 +135,7 @@
       border-color: var(--primary-color);
     }
 
-    /* Reproductor de audio nativo */
+    /* Le quitamos el loop aquí para que podamos detectar cuando acaba */
     audio {
       width: 100%;
       height: 40px;
@@ -175,12 +181,15 @@
       font-weight: 600;
       color: var(--primary-color);
       background: rgba(255, 255, 255, 0.85);
-      padding: 10px 20px;
+      padding: 12px 25px;
       border-radius: 30px;
       backdrop-filter: blur(5px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       animation: floatText 9s linear forwards;
       white-space: nowrap;
+      cursor: pointer; 
+      pointer-events: auto; 
+      user-select: none;
     }
 
     .music-note {
@@ -189,6 +198,17 @@
       text-shadow: 0 0 10px rgba(255,255,255,0.8);
       animation: floatNote 6s ease-in forwards;
       z-index: 1;
+    }
+
+    /* Animación de los Easter Eggs arreglada con Transform (caída perfecta) */
+    .easter-egg-item {
+      position: absolute;
+      font-size: 35px; 
+      top: -10%; /* Inicia fuera de la pantalla por arriba */
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+      animation: fallAnimation 5s linear forwards; 
+      z-index: 5;
+      pointer-events: none;
     }
 
     @keyframes floatText {
@@ -202,7 +222,22 @@
       0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
       20% { opacity: 1; transform: translateY(-20px) rotate(15deg) scale(1.2); }
       80% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-150px) rotate(-15deg) scale(1); }
+      100% { opacity: 0; transform: translateY(-200px) rotate(-15deg) scale(1); }
+    }
+
+    /* Nueva animación de lluvia infalible */
+    @keyframes fallAnimation {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(0deg);
+      }
+      10% { opacity: 1; }
+      80% { opacity: 1; }
+      100% {
+        opacity: 0;
+        /* Viaja hacia abajo 120vh garantizando que sale de la pantalla */
+        transform: translate(var(--drift), 120vh) rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -237,7 +272,7 @@
       <option value="WILDFLOWER">WILDFLOWER</option>
     </select>
 
-    <audio id="audio-player" controls loop></audio>
+    <audio id="audio-player" controls></audio>
 
     <button class="btn-revertir" onclick="reiniciarVista()">Atrasito 🔙</button>
   </div>
@@ -245,28 +280,27 @@
   <div id="bubbles-text"></div>
 
   <script>
-    // Configuración de las canciones, fondos, mensajes fijos Y EMOJIS
     const datosCanciones = {
-      "220": { mp3: "220.mp3", fondoClass: "bg-220", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🪐", "💙", "🛸"] },
-      "505": { mp3: "505.mp3", fondoClass: "bg-505", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🕰️", "🤍", "🎸"] },
-      "BULLS IN THE BRONX": { mp3: "BULLS IN THE BRONX.mp3", fondoClass: "bg-bulls", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🤘", "🎸", "🖤", "🌹"] },
-      "CONSUME": { mp3: "CONSUME.mp3", fondoClass: "bg-consume", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌙", "🍷", "🖤", "🔥"] },
-      "DAYLIGHT": { mp3: "DAYLIGHT.mp3", fondoClass: "bg-daylight", fraseCentral: "iloveyoualotsoverymuch", emojis: ["☀️", "💛", "🌅"] },
-      "ERES TÚ": { mp3: "ERES TÚ.mp3", fondoClass: "bg-eres-tu", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌻", "💖", "🌷"] },
-      "GIMME LOVE": { mp3: "GIMME LOVE.mp3", fondoClass: "bg-gimme", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🚀", "❤️", "💫", "🏃‍♂️"] },
-      "HER": { mp3: "HER.mp3", fondoClass: "bg-her", fraseCentral: "iloveyoualotsoverymuch", emojis: ["👑", "💖", "🌟"] },
-      "I LOVE YOU,I'M SORRY": { mp3: "I LOVE YOU,I'M SORRY.mp3", fondoClass: "bg-sorry", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🥺", "🎀", "🩹"] },
-      "I LOVEEE": { mp3: "I LOVEEE.mp3", fondoClass: "bg-love", fraseCentral: "iloveyoualotsoverymuch", emojis: ["💖", "🔥", "😻"] },
-      "I SEE RED": { mp3: "I SEE RED.mp3", fondoClass: "bg-red", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🔥", "🌹", "💋"] },
-      "I WANNA BE YOUR": { mp3: "I WANNA BE YOUR.mp3", fondoClass: "bg-wanna", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🖤", "⛓️", "🎸", "🔥"] },
-      "MELTING": { mp3: "MELTING.mp3", fondoClass: "bg-melting", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🫠", "🍦", "🤎", "🌙"] },
-      "MY LOVE MINE": { mp3: "MY LOVE MINE.mp3", fondoClass: "bg-my-love", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌙", "🤍", "🎹"] },
-      "NDA": { mp3: "NDA.mp3", fondoClass: "bg-nda", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🕶️", "🖤", "🤫", "🌃"] },
-      "OUT OF MY LEAGUE": { mp3: "OUT OF MY LEAGUE.mp3", fondoClass: "bg-out", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🕺", "💙", "🌟"] },
-      "SIENNA": { mp3: "SIENNA.mp3", fondoClass: "bg-sienna", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌅", "🧡", "🍸"] },
-      "SWEATER WEATHER": { mp3: "SWEATER WEATHER.mp3", fondoClass: "bg-sweater", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🧥", "🌧️", "🖤", "🌲"] },
-      "TIWFILFL": { mp3: "TIWFILFL.mp3", fondoClass: "bg-falling", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🎹", "💖", "⏳"] },
-      "WILDFLOWER": { mp3: "WILDFLOWER.mp3", fondoClass: "bg-wildflower", fraseCentral: "iloveyoualotsoverymuch", emojis: ["🌸", "🌼", "🌿", "💚"] }
+      "220": { mp3: "220.mp3", fondoClass: "bg-220",Emojis: ["🪐", "💙", "🛸"] },
+      "505": { mp3: "505.mp3", fondoClass: "bg-505",Emojis: ["🕰️", "🤍", "🎸"] },
+      "BULLS IN THE BRONX": { mp3: "BULLS IN THE BRONX.mp3", fondoClass: "bg-bulls",Emojis: ["🤘", "🎸", "🖤", "🌹"] },
+      "CONSUME": { mp3: "CONSUME.mp3", fondoClass: "bg-consume",Emojis: ["🌙", "🍷", "🖤", "🔥"] },
+      "DAYLIGHT": { mp3: "DAYLIGHT.mp3", fondoClass: "bg-daylight",Emojis: ["☀️", "💛", "🌅"] },
+      "ERES TÚ": { mp3: "ERES TÚ.mp3", fondoClass: "bg-eres-tu",Emojis: ["🌻", "💖", "🌷"] },
+      "GIMME LOVE": { mp3: "GIMME LOVE.mp3", fondoClass: "bg-gimme",Emojis: ["🚀", "❤️", "💫", "🏃‍♂️"] },
+      "HER": { mp3: "HER.mp3", fondoClass: "bg-her",Emojis: ["👑", "💖", "🌟"] },
+      "I LOVE YOU,I'M SORRY": { mp3: "I LOVE YOU,I'M SORRY.mp3", fondoClass: "bg-sorry",Emojis: ["🥺", "🎀", "🩹"] },
+      "I LOVEEE": { mp3: "I LOVEEE.mp3", fondoClass: "bg-love",Emojis: ["💖", "🔥", "😻"] },
+      "I SEE RED": { mp3: "I SEE RED.mp3", fondoClass: "bg-red",Emojis: ["🔥", "🌹", "💋"] },
+      "I WANNA BE YOUR": { mp3: "I WANNA BE YOUR.mp3", fondoClass: "bg-wanna",Emojis: ["🖤", "⛓️", "🎸", "🔥"] },
+      "MELTING": { mp3: "MELTING.mp3", fondoClass: "bg-melting",Emojis: ["🫠", "🍦", "🤎", "🌙"] },
+      "MY LOVE MINE": { mp3: "MY LOVE MINE.mp3", fondoClass: "bg-my-love",Emojis: ["🌙", "🤍", "🎹"] },
+      "NDA": { mp3: "NDA.mp3", fondoClass: "bg-nda",Emojis: ["🕶️", "🖤", "🤫", "🌃"] },
+      "OUT OF MY LEAGUE": { mp3: "OUT OF MY LEAGUE.mp3", fondoClass: "bg-out",Emojis: ["🕺", "💙", "🌟"] },
+      "SIENNA": { mp3: "SIENNA.mp3", fondoClass: "bg-sienna",Emojis: ["🌅", "🧡", "🍸"] },
+      "SWEATER WEATHER": { mp3: "SWEATER WEATHER.mp3", fondoClass: "bg-sweater",Emojis: ["🧥", "🌧️", "🖤", "🌲"] },
+      "TIWFILFL": { mp3: "TIWFILFL.mp3", fondoClass: "bg-falling",Emojis: ["🎹", "💖", "⏳"] },
+      "WILDFLOWER": { mp3: "WILDFLOWER.mp3", fondoClass: "bg-wildflower",Emojis: ["🌸", "🌼", "🌿", "💚"] }
     };
 
     const mensajes = [
@@ -278,7 +312,7 @@
       "You are the best 😍",
       "Me encanta tu sonrisa 🤩",
       "Vania bajita 💘",
-      "Friends always ✨",
+      "Siempre juntos ✨",
       "Gracias por enseñarme APA 💭",
       "Gracias por no fallarme amiga💫",
       "No me caes tan mal xd 👻"
@@ -287,72 +321,128 @@
     let isPlayingMusic = false;
     const baseEmojis = ["🎵", "🎶", "✨", "❤️"]; 
     let currentEmojis = [...baseEmojis]; 
+    const fraseFija = "iloveyoualotsoverymuch";
 
-    // Crear burbujas de texto
+    // Efecto Máquina de escribir
+    function typeWriterEffect(text, elementId) {
+      const element = document.getElementById(elementId);
+      element.innerHTML = ""; 
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, 100); 
+        } else {
+          element.innerHTML = text; 
+        }
+      }
+      type();
+    }
+
+    // Lluvia infalible arreglada
+    function lluviaDeItemEasterEgg(itemsArray) {
+      const numItems = 60; 
+      
+      for (let i = 0; i < numItems; i++) {
+        setTimeout(() => {
+          const item = document.createElement("div");
+          item.className = "easter-egg-item";
+          item.innerText = itemsArray[Math.floor(Math.random() * itemsArray.length)];
+          
+          item.style.left = (Math.random() * 95) + "vw";
+          
+          // Calculamos el viento para que caiga en diagonal a veces
+          const drift = (Math.random() * 20 - 10) + "vw"; 
+          item.style.setProperty('--drift', drift);
+          
+          document.getElementById("bubbles-text").appendChild(item);
+          setTimeout(() => item.remove(), 5500); 
+        }, i * 50); 
+      }
+    }
+
+    // Easter Egg 2
+    let burbujasVaniaBajitaClickeadas = 0;
+    function registrarClicBurbuja(text, bubbleElement) {
+      if (text === "Vania bajita 👑") {
+        burbujasVaniaBajitaClickeadas++;
+        bubbleElement.style.border = "3px solid #b01c64"; 
+        
+        if (burbujasVaniaBajitaClickeadas === 4) {
+          lluviaDeItemEasterEgg(["❤️", "💖", "✨", "⭐", "🌟"]); 
+          burbujasVaniaBajitaClickeadas = 0; 
+        }
+      }
+    }
+
     function createTextBubble() {
       const bubble = document.createElement("div");
       bubble.className = "text-bubble";
-      bubble.innerText = mensajes[Math.floor(Math.random() * mensajes.length)];
+      const randomText = mensajes[Math.floor(Math.random() * mensajes.length)];
+      bubble.innerText = randomText;
       
+      bubble.onclick = () => registrarClicBurbuja(randomText, bubble);
+
       bubble.style.left = (Math.random() * 80 + 5) + "vw";
       bubble.style.top = (Math.random() * 80 + 10) + "vh"; 
 
       document.getElementById("bubbles-text").appendChild(bubble);
-      
       setTimeout(() => bubble.remove(), 9000);
     }
 
-    // Crear notas/emojis cuando suena algo
     function createMusicNote() {
       if (!isPlayingMusic) return;
       const note = document.createElement("div");
       note.className = "music-note";
-      
       note.innerText = currentEmojis[Math.floor(Math.random() * currentEmojis.length)];
-      
       note.style.left = (Math.random() * 80 + 5) + "vw";
       note.style.top = (Math.random() * 20 + 80) + "vh"; 
-      
       document.getElementById("bubbles-text").appendChild(note);
-
       setTimeout(() => note.remove(), 6000);
     }
+
+    // Easter Egg 1
+    let tituloClics = 0;
+    const mensajeCentral = document.getElementById("mensaje-central");
+    mensajeCentral.onclick = () => {
+      tituloClics++;
+      if (tituloClics === 5) {
+        lluviaDeItemEasterEgg(["👻", "💀", "👻"]); 
+        tituloClics = 0; 
+      }
+    };
 
     setInterval(createTextBubble, 1500);
     setInterval(createMusicNote, 600); 
 
-    // Función que se activa al elegir una canción
     function cambiarCancionSelect() {
       const selector = document.getElementById("song-selector");
       const cancionElegida = selector.value;
-      
       if (!cancionElegida) {
         reiniciarVista();
         return;
       }
-
+      
       const info = datosCanciones[cancionElegida];
       const audio = document.getElementById("audio-player");
       const overlay = document.getElementById("bg-overlay");
-      const mensajeCentral = document.getElementById("mensaje-central");
-
-      // Reproducir
+      
       audio.src = info.mp3;
       audio.play();
       isPlayingMusic = true;
 
-      // Cambiar texto
-      mensajeCentral.innerText = info.fraseCentral;
+      typeWriterEffect(fraseFija, "mensaje-central");
 
-      // Cambiar fondo superpuesto
       overlay.className = ""; 
       overlay.classList.add(info.fondoClass);
 
-      // Juntar emojis
-      currentEmojis = info.emojis.concat(baseEmojis);
+      currentEmojis = info.Emojis.concat(baseEmojis);
+      
+      burbujasVaniaBajitaClickeadas = 0;
+      tituloClics = 0;
     }
 
-    // Botón Atrasito
     function reiniciarVista() {
       const audio = document.getElementById("audio-player");
       const overlay = document.getElementById("bg-overlay");
@@ -366,9 +456,28 @@
 
       mensajeCentral.innerText = "Vania, I Love You ❤️";
       overlay.className = ""; 
-      
       currentEmojis = [...baseEmojis];
+      
+      burbujasVaniaBajitaClickeadas = 0;
+      tituloClics = 0;
     }
+
+    // EVENTO AUTOMÁTICO PARA PASAR A LA SIGUIENTE CANCIÓN
+    document.getElementById("audio-player").addEventListener("ended", function() {
+      const selector = document.getElementById("song-selector");
+      
+      // Si no es la última canción de la lista, pasa a la siguiente
+      if (selector.selectedIndex < selector.options.length - 1) {
+        selector.selectedIndex++;
+      } else {
+        // Si es la última, vuelve a la primera canción (índice 1, saltando el placeholder)
+        selector.selectedIndex = 1; 
+      }
+      
+      // Ejecuta la función de cambiar canción
+      cambiarCancionSelect();
+    });
+
   </script>
 </body>
 </html>
