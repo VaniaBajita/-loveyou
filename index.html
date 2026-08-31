@@ -842,13 +842,7 @@
        Ordenadas por artista (A→Z) y, dentro de cada artista, por título.
        Las de artista desconocido ("—") van al final.
        ======================================================================= */
-    /* Dónde están los .mp3 respecto a ESTE archivo.
-       "../" → esta copia vive en /beta/ y reutiliza los mp3 que ya están en la
-               raíz del repo, sin duplicar 350 MB.
-       "./"  → si algún día mueves este archivo a la raíz, cambias esta línea
-               y nada más. Es la única diferencia con la versión publicada. */
-    const BASE = "../";
-    const songFile = (name) => `${BASE}${encodeURIComponent(name)}`;
+    const songFile = (name) => `./${encodeURIComponent(name)}`;
 
     const SONGS = [
       {
