@@ -219,14 +219,25 @@
       background: var(--c-text);
     }
 
+    /* Zona táctil generosa alrededor de una barra que solo mide 4px. */
+    .player__scrub {
+      padding: 9px 0;
+      cursor: pointer;
+      touch-action: none;
+    }
+
     .player__bar {
       width: 100%;
       height: 4px;
       background: #4a0a1f2e;
       border-radius: 999px;
       overflow: hidden;
-      cursor: pointer;
-      margin-bottom: 1.2rem;
+      transition: height .15s var(--ease);
+    }
+
+    .player__scrub:hover .player__bar,
+    .player__scrub.is-scrubbing .player__bar {
+      height: 7px;
     }
 
     .player__fill {
@@ -234,6 +245,21 @@
       background: var(--c-text-2);
       width: 0%;
       transition: width .12s linear;
+    }
+
+    /* Al arrastrar manda el dedo, no la interpolación. */
+    .player__scrub.is-scrubbing .player__fill {
+      transition: none;
+    }
+
+    .player__times {
+      display: flex;
+      justify-content: space-between;
+      margin: 1px 0 1.1rem;
+      font-size: 10px;
+      letter-spacing: .16em;
+      color: var(--c-mute);
+      font-variant-numeric: tabular-nums;
     }
 
     /* =========================================================================
@@ -323,7 +349,9 @@
       font-weight: 500;
       font-size: 22px;
       margin: 0;
-      color: var(--c-accent);
+      /* --c-to, no --c-accent: el accent de cada canción es el tono CLARO de su
+         paleta y sobre el panel blanco se volvía ilegible (hasta 1.0:1). */
+      color: var(--c-to);
     }
 
     .list-panel__close {
@@ -332,7 +360,7 @@
       border-radius: 50%;
       border: none;
       background: #be185d14;
-      color: var(--c-accent);
+      color: var(--c-to);
       font-size: 14px;
       display: flex;
       align-items: center;
@@ -343,12 +371,36 @@
       background: #be185d2e;
     }
 
+    .list-search {
+      width: 100%;
+      margin: 12px 4px 4px;
+      padding: 10px 16px;
+      border: 1px solid rgba(74, 10, 31, .18);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--c-ink);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .18s var(--ease), box-shadow .18s var(--ease);
+    }
+
+    .list-search::placeholder {
+      color: var(--c-mute);
+      font-style: italic;
+    }
+
+    .list-search:focus {
+      border-color: var(--c-to);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-to) 18%, transparent);
+    }
+
     .list-panel__items {
       flex: 1;
       overflow-y: auto;
       padding: 8px 4px;
       scrollbar-width: thin;
-      scrollbar-color: var(--c-accent) transparent;
+      scrollbar-color: var(--c-to) transparent;
     }
 
     .list-panel__items::-webkit-scrollbar {
@@ -356,8 +408,17 @@
     }
 
     .list-panel__items::-webkit-scrollbar-thumb {
-      background: color-mix(in srgb, var(--c-accent) 35%, transparent);
+      background: color-mix(in srgb, var(--c-to) 45%, transparent);
       border-radius: 999px;
+    }
+
+    .list-empty {
+      margin: 24px 0 12px;
+      text-align: center;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--c-mute);
     }
 
     /* --- fila de la lista --- */
@@ -380,8 +441,13 @@
       background: #be185d14;
     }
 
+    .list-item[hidden] {
+      display: none;
+    }
+
     .list-item.is-active {
-      background: var(--c-accent);
+      /* mismo motivo: con --c-accent quedaba texto blanco sobre casi-blanco */
+      background: var(--c-to);
       color: #fff;
     }
 
@@ -457,11 +523,36 @@
       box-shadow: 0 6px 20px -8px #4a0a1f4d;
     }
 
+    /* La capa entera es inerte; solo la burbuja secreta acepta toques.
+       Va DESPUÉS de .bubble y con dos clases a propósito: si no, el
+       pointer-events:none de .bubble la volvía a desactivar. */
+    .bubble.bubble--secret {
+      pointer-events: auto;
+      cursor: pointer;
+      /* Sin esto sale el cursor de texto y al insistir se selecciona la frase:
+         parecía texto suelto en vez de algo que se puede tocar. */
+      user-select: none;
+      -webkit-user-select: none;
+      transition: filter .12s var(--ease), box-shadow .12s var(--ease);
+    }
+
+    .bubble.bubble--secret:hover {
+      box-shadow: 0 8px 26px -8px #4a0a1f66;
+    }
+
+    /* Al apretar no se puede tocar transform: lo está usando la animación
+       de flotar y la pisaría. El brillo sí es libre. */
+    .bubble.bubble--secret:active {
+      filter: brightness(.94);
+    }
+
+    /* La subida es variable: cuando la burbuja nace debajo de la tarjeta solo
+       puede subir hasta rozarla, o volvería a meterse detrás del reproductor. */
     @keyframes bubbleFloat {
       0%   { opacity: 0; transform: translateY(20px); }
       10%  { opacity: 1; }
       90%  { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-100px); }
+      100% { opacity: 0; transform: translateY(calc(-1 * var(--drift, 100px))); }
     }
 
     /* =========================================================================
@@ -518,6 +609,19 @@
       opacity: .95;
     }
 
+    /* Velo oscuro justo en el centro. El texto blanco cae sobre --c-from, que es
+       el extremo CLARO de la paleta: sin esto no se leía en 35 de las 45. Se
+       desvanece hacia los bordes para no matar el color de la canción. */
+    .reveal__bg:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%,
+        rgba(0, 0, 0, .45) 0%,
+        rgba(0, 0, 0, .24) 45%,
+        transparent 75%);
+    }
+
     .reveal__inner {
       position: relative;
       text-align: center;
@@ -533,7 +637,7 @@
       line-height: 1.1;
       margin: 0;
       color: #fff;
-      text-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, .45), 0 4px 30px rgba(0, 0, 0, .35);
       white-space: nowrap;
       letter-spacing: -.012em;
     }
@@ -545,7 +649,7 @@
       font-weight: 500;
       font-size: clamp(20px, 2.6vw, 28px);
       color: #fff;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .5), 0 2px 12px rgba(0, 0, 0, .35);
     }
 
     .reveal__emojis {
@@ -572,7 +676,68 @@
     }
 
     /* =========================================================================
-       11. ACCESIBILIDAD
+       11. FRASCO DE CORAZONES (easter egg)
+       Se llena de abajo hacia arriba. Va por encima de la tarjeta y del panel,
+       pero por debajo del reveal, y no toca el audio.
+       ========================================================================= */
+    .jar {
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .jar-emoji {
+      position: absolute;
+      top: 0;
+      left: 0;
+      line-height: 1;
+      /* Cada uno trae su propia duración y su propio retraso: así llueve en
+         desorden en vez de caer todo a la vez. */
+      animation: jarCaida var(--dur, 1.5s) var(--delay, 0ms) both;
+      will-change: transform;
+    }
+
+    /* CAÍDA — acelera como si tirara la gravedad, aterriza, da un botecito
+       corto y se asienta. Cada tramo lleva su propia curva. */
+    @keyframes jarCaida {
+      0% {
+        transform: translate(var(--x), -20vh) rotate(var(--r0)) scale(.9);
+        animation-timing-function: cubic-bezier(.45, .03, .78, .42);
+      }
+      70% {
+        transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
+        animation-timing-function: cubic-bezier(.2, .85, .45, 1);
+      }
+      82% {
+        transform: translate(var(--x), calc(var(--y) - 11px)) rotate(var(--r)) scale(1.03);
+        animation-timing-function: cubic-bezier(.55, 0, .8, .5);
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
+      }
+    }
+
+    /* VACIADO — como quitarle el fondo al frasco: se desploman fuera de la
+       pantalla, los de abajo primero, y los de arriba les siguen. */
+    .jar.is-draining .jar-emoji {
+      animation: jarSalida .85s var(--salida, 0ms) both;
+    }
+
+    @keyframes jarSalida {
+      0% {
+        transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
+        animation-timing-function: cubic-bezier(.5, 0, .85, .5);
+      }
+      100% {
+        transform: translate(calc(var(--x) + var(--dx)), 120vh)
+                   rotate(calc(var(--r) + var(--giro))) scale(1);
+      }
+    }
+
+    /* =========================================================================
+       12. ACCESIBILIDAD
        ========================================================================= */
     @media (prefers-reduced-motion: reduce) {
       *,
@@ -608,8 +773,14 @@
         <button class="player__btn player__btn--play" id="play" aria-label="reproducir">▶</button>
         <button class="player__btn" id="next" aria-label="siguiente">›</button>
       </div>
-      <div class="player__bar" id="bar">
-        <div class="player__fill" id="fill"></div>
+      <div class="player__scrub" id="scrub">
+        <div class="player__bar" id="bar">
+          <div class="player__fill" id="fill"></div>
+        </div>
+      </div>
+      <div class="player__times">
+        <span id="timeNow">0:00</span>
+        <span id="timeEnd">0:00</span>
       </div>
 
       <!-- ABRIR LISTA -->
@@ -636,7 +807,10 @@
         <h2 class="list-panel__title">elige una</h2>
         <button class="list-panel__close" id="listClose" aria-label="cerrar">✕</button>
       </header>
+      <input class="list-search" id="listSearch" type="search" autocomplete="off"
+             placeholder="buscar canción o artista…" aria-label="buscar canción o artista" />
       <div class="list-panel__items" id="listItems"></div>
+      <p class="list-empty" id="listEmpty" hidden>nada por aquí 🙈</p>
     </div>
   </div>
 
@@ -652,6 +826,11 @@
     <div class="reveal__emojis" id="revealEmojis"></div>
   </div>
 
+  <!-- ======================================================================
+       FRASCO DE CORAZONES (easter egg)
+       ====================================================================== -->
+  <div class="jar" id="jar" aria-hidden="true"></div>
+
   <audio id="audio" preload="metadata"></audio>
 
   <script type="module">
@@ -663,7 +842,13 @@
        Ordenadas por artista (A→Z) y, dentro de cada artista, por título.
        Las de artista desconocido ("—") van al final.
        ======================================================================= */
-    const songFile = (name) => `./${encodeURIComponent(name)}`;
+    /* Dónde están los .mp3 respecto a ESTE archivo.
+       "../" → esta copia vive en /beta/ y reutiliza los mp3 que ya están en la
+               raíz del repo, sin duplicar 350 MB.
+       "./"  → si algún día mueves este archivo a la raíz, cambias esta línea
+               y nada más. Es la única diferencia con la versión publicada. */
+    const BASE = "../";
+    const songFile = (name) => `${BASE}${encodeURIComponent(name)}`;
 
     const SONGS = [
       {
@@ -1133,6 +1318,8 @@
       const overlay   = document.getElementById("listOverlay");
       const closeBtn  = document.getElementById("listClose");
       const itemsEl   = document.getElementById("listItems");
+      const searchEl  = document.getElementById("listSearch");
+      const emptyEl   = document.getElementById("listEmpty");
 
       /* --- pintar la lista --- */
       itemsEl.innerHTML = SONGS.map((song, i) => `
@@ -1186,6 +1373,23 @@
         nowEl.classList.toggle("is-playing", state === "playing");
       });
 
+      /* --- buscador: filtra por título y por artista --- */
+      function filtrar() {
+        const q = searchEl.value.trim().toLowerCase();
+        let visibles = 0;
+        items.forEach((el, i) => {
+          const s = SONGS[i];
+          const hit = !q ||
+            s.title.toLowerCase().includes(q) ||
+            s.artist.toLowerCase().includes(q);
+          el.hidden = !hit;
+          if (hit) visibles++;
+        });
+        emptyEl.hidden = visibles > 0;
+      }
+
+      searchEl.addEventListener("input", filtrar);
+
       /* --- abrir / cerrar el panel --- */
       function openPanel() {
         panel.classList.add("is-open");
@@ -1196,13 +1400,18 @@
       function closePanel() {
         panel.classList.remove("is-open");
         panel.setAttribute("aria-hidden", "true");
+        searchEl.value = "";
+        filtrar();
       }
 
       toggleBtn.addEventListener("click", openPanel);
       overlay.addEventListener("click", closePanel);
       closeBtn.addEventListener("click", closePanel);
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && panel.classList.contains("is-open")) closePanel();
+        if (e.key !== "Escape" || !panel.classList.contains("is-open")) return;
+        // Escape limpia el buscador primero; solo cierra si ya estaba vacío.
+        if (searchEl.value) { searchEl.value = ""; filtrar(); return; }
+        closePanel();
       });
 
       return {
@@ -1212,6 +1421,15 @@
           applyPalette(song);
           markActive(id);
           renderNowPlaying(song);
+        },
+        /* Cambiar de pista sin pasar por el reveal: lo usan los botones, el
+           teclado, el fin de canción y los controles del móvil. */
+        go(song) {
+          if (!song) return;
+          applyPalette(song);
+          markActive(song.id);
+          renderNowPlaying(song);
+          player.play(song);
         },
         nextOf(id) {
           const i = SONGS.findIndex((s) => s.id === id);
@@ -1246,40 +1464,83 @@
         if (player.current) player.toggle();
       });
 
-      // Cambiar de pista: mismo gesto para el botón y para el fin de canción.
-      function goTo(song) {
-        applyPalette(song);
-        list.setActive(song.id);
-        player.play(song);
-      }
-
       prevBtn.addEventListener("click", () => {
         if (!player.current) return;
-        goTo(list.prevOf(player.current.id));
+        list.go(list.prevOf(player.current.id));
       });
 
       nextBtn.addEventListener("click", () => {
         if (!player.current) return;
-        goTo(list.nextOf(player.current.id));
+        list.go(list.nextOf(player.current.id));
       });
 
       player.onEnded(() => {
         if (!player.current) return;
-        goTo(list.nextOf(player.current.id));
+        list.go(list.nextOf(player.current.id));
       });
 
-      /* --- barra de progreso --- */
+      /* --- barra de progreso: arrastrable, con tiempos --- */
+      const scrubEl = document.getElementById("scrub");
+      const nowT    = document.getElementById("timeNow");
+      const endT    = document.getElementById("timeEnd");
+      let arrastrando = false;
+
+      const mmss = (s) => Number.isFinite(s) && s >= 0
+        ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`
+        : "0:00";
+
+      const ratioDe = (e) => {
+        const r = barEl.getBoundingClientRect();
+        return Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+      };
+
+      const pintar = (ratio, t) => {
+        fillEl.style.width = `${ratio * 100}%`;
+        nowT.textContent = mmss(t);
+      };
+
       player.audio.addEventListener("timeupdate", () => {
+        if (arrastrando) return;   // mientras se arrastra manda el dedo
         const { currentTime, duration } = player.audio;
         if (!Number.isFinite(duration) || duration === 0) return;
-        fillEl.style.width = `${(currentTime / duration) * 100}%`;
+        pintar(currentTime / duration, currentTime);
       });
 
-      barEl.addEventListener("click", (e) => {
-        const rect  = barEl.getBoundingClientRect();
-        const ratio = (e.clientX - rect.left) / rect.width;
-        player.seek(Math.max(0, Math.min(1, ratio)));
+      player.audio.addEventListener("loadedmetadata", () => {
+        endT.textContent = mmss(player.audio.duration);
       });
+
+      player.onSong(() => {
+        fillEl.style.width = "0%";
+        nowT.textContent = "0:00";
+        endT.textContent = "0:00";
+      });
+
+      scrubEl.addEventListener("pointerdown", (e) => {
+        if (!player.current || !Number.isFinite(player.audio.duration)) return;
+        arrastrando = true;
+        scrubEl.classList.add("is-scrubbing");
+        scrubEl.setPointerCapture(e.pointerId);
+        const r = ratioDe(e);
+        pintar(r, r * player.audio.duration);
+      });
+
+      scrubEl.addEventListener("pointermove", (e) => {
+        if (!arrastrando) return;
+        const r = ratioDe(e);
+        pintar(r, r * player.audio.duration);
+      });
+
+      const soltar = (e) => {
+        if (!arrastrando) return;
+        arrastrando = false;
+        scrubEl.classList.remove("is-scrubbing");
+        try { scrubEl.releasePointerCapture(e.pointerId); } catch {}
+        player.seek(ratioDe(e));
+      };
+
+      scrubEl.addEventListener("pointerup", soltar);
+      scrubEl.addEventListener("pointercancel", soltar);
     }
 
     /* =======================================================================
@@ -1288,25 +1549,85 @@
     const BUBBLE_MAX      = 7;
     const BUBBLE_EVERY_MS = 1800;
     const BUBBLE_LIFE_MS  = 9000;
+    const BUBBLE_DRIFT    = 100;             // lo que sube durante bubbleFloat
+    const BUBBLE_ARRANQUE = 20;              // y lo que baja al empezar
+    const SECRET_MESSAGE  = "Vania bajita 👑";
+    const SECRET_TAPS     = 3;
 
-    function setupBubbles() {
+    function setupBubbles(alTocarSecreto) {
       const layer = document.getElementById("bubbles");
       if (!layer) return;
 
+      const card  = document.querySelector(".card");
       const alive = new Set();
+      let toques = 0;                        // se acumulan entre burbujas
+
+      /* Antes nacían entre 10–80vw y 15–85vh, o sea encima del centro, y la
+         tarjeta las tapaba (capa en z-index 1, tarjeta en 2). Ahora se sortea
+         la posición solo en el hueco libre alrededor de la tarjeta. */
+      function huecoLibre(w, h) {
+        const vw = innerWidth, vh = innerHeight, pad = 14;
+        const r = card?.getBoundingClientRect();
+        const alto = h + BUBBLE_ARRANQUE;    // ocupa un poco más al arrancar
+        const zonas = [];
+        const add = (x0, y0, x1, y1, drift) => {
+          if (x1 > x0 && y1 > y0) zonas.push({ x0, y0, x1, y1, drift, area: (x1 - x0) * (y1 - y0) });
+        };
+
+        if (!r) {
+          add(0, 0, vw - w, vh - alto, BUBBLE_DRIFT);
+        } else {
+          // A los lados y por arriba sube entera sin acercarse a la tarjeta.
+          add(0, 0, r.left - pad - w, vh - alto, BUBBLE_DRIFT);        // izquierda
+          add(r.right + pad, 0, vw - w, vh - alto, BUBBLE_DRIFT);      // derecha
+          add(0, 0, vw - w, r.top - pad - alto, BUBBLE_DRIFT);         // arriba
+          // Por abajo la subida se recorta según lo lejos que haya nacido.
+          add(0, r.bottom + pad + 25, vw - w, vh - alto, null);        // abajo
+        }
+
+        // Pantalla sin hueco: mejor no sacar burbuja que sacarla tapada.
+        if (!zonas.length) return null;
+
+        // Zona al azar, ponderada por área, para repartir parejo.
+        let n = Math.random() * zonas.reduce((s, z) => s + z.area, 0);
+        const z = zonas.find((z) => (n -= z.area) <= 0) ?? zonas[0];
+        const y = z.y0 + Math.random() * (z.y1 - z.y0);
+
+        return {
+          x: z.x0 + Math.random() * (z.x1 - z.x0),
+          y,
+          drift: z.drift ?? Math.min(BUBBLE_DRIFT, y - r.bottom - pad),
+        };
+      }
 
       function spawn() {
         if (alive.size >= BUBBLE_MAX || document.hidden) return;
 
+        const msg = MESSAGES[Math.floor(Math.random() * MESSAGES.length)] ?? "";
         const el = document.createElement("div");
         el.className = "bubble";
-        el.textContent = MESSAGES[Math.floor(Math.random() * MESSAGES.length)] ?? "";
-        el.style.left = `${Math.random() * 70 + 10}vw`;
-        el.style.top  = `${Math.random() * 70 + 15}vh`;
-
+        el.textContent = msg;
+        el.style.left = "-9999px";           // fuera de vista para poder medirla
         layer.appendChild(el);
-        alive.add(el);
 
+        const hueco = huecoLibre(el.offsetWidth, el.offsetHeight);
+        if (!hueco) { el.remove(); return; }
+        el.style.left = `${hueco.x}px`;
+        el.style.top  = `${hueco.y}px`;
+        el.style.setProperty("--drift", `${hueco.drift}px`);
+
+        if (msg === SECRET_MESSAGE) {
+          el.classList.add("bubble--secret");
+          // pointerdown y no click: la burbuja se mueve mientras vive y en
+          // móvil el click puede perderse entre el toque y el levantar el dedo.
+          el.addEventListener("pointerdown", () => {
+            if (++toques < SECRET_TAPS) return;
+            toques = 0;
+            alTocarSecreto?.();
+          });
+        }
+
+        alive.add(el);
         setTimeout(() => {
           alive.delete(el);
           el.remove();
@@ -1369,7 +1690,200 @@
     }
 
     /* =======================================================================
-       10. ARRANQUE
+       10. EASTER EGG — el frasco de corazones
+       Se dispara con 3 toques acumulados en la burbuja "Vania bajita 👑".
+       No toca el audio ni la paleta: la canción sigue exactamente igual.
+       ======================================================================= */
+    const JAR_CORAZONES = ["❤️", "💗", "💖", "💓", "💕", "💘", "💝", "❣️", "🩷", "♥️"];
+    const JAR_ESTRELLAS = ["⭐", "🌟", "✨", "💫", "🌠"];
+    const JAR_OTROS     = ["🧡", "💛", "💚", "💙", "💜", "🤍"];
+    const JAR_LLENADO_MS = 7000;   // lo que tarda la lluvia en cubrir la pantalla
+    const JAR_ESPERA_MS  = 1400;   // lo que se queda quieta una vez llena
+    const JAR_TOPE       = 420;    // máximo de emojis a la vez
+
+    function jarBurst() {
+      const layer = document.getElementById("jar");
+      if (!layer || layer.dataset.lleno === "1") return;   // sin solaparse consigo mismo
+      layer.dataset.lleno = "1";
+      layer.classList.remove("is-draining");
+      layer.innerHTML = "";
+
+      // Mayoría rojos y rosas, luego estrellas, y el resto de colores al final.
+      const elegir = () => {
+        const r = Math.random();
+        const pool = r < 0.62 ? JAR_CORAZONES : r < 0.82 ? JAR_ESTRELLAS : JAR_OTROS;
+        return pool[Math.floor(Math.random() * pool.length)];
+      };
+
+      // La celda crece en pantallas grandes para que la pantalla quede cubierta
+      // del todo sin pasarse del tope de emojis.
+      const vw = innerWidth, vh = innerHeight;
+      let celda = 56;
+      while (Math.ceil(vw / celda) * Math.ceil(vh / celda) > JAR_TOPE) celda += 4;
+
+      // +1 columna porque las filas impares van desplazadas media celda.
+      const cols  = Math.ceil(vw / celda) + 1;
+      const filas = Math.ceil(vh / celda);
+
+      const huecos = [];
+      for (let fila = 0; fila < filas; fila++)
+        for (let col = 0; col < cols; col++)
+          // El desempate al azar difumina la frontera entre filas: el montón
+          // sube irregular, como canicas de verdad, no en capas planas.
+          huecos.push({ fila, col, orden: fila + Math.random() * 0.85 });
+
+      huecos.sort((a, b) => a.orden - b.orden);
+
+      // Mismo tiempo total en un móvil (~110 huecos) que en un escritorio (~420).
+      const intervalo = Math.min(90, Math.max(12, JAR_LLENADO_MS / huecos.length));
+      let ultimoAterrizaje = 0;
+
+      huecos.forEach(({ fila, col }, i) => {
+        const el = document.createElement("span");
+        el.className = "jar-emoji";
+        el.textContent = elegir();
+
+        // Al tresbolillo: las filas impares van media celda corridas, como
+        // ladrillos. Tapa mucho mejor que una rejilla recta y encima se nota
+        // menos que hay rejilla debajo.
+        const sangria = (fila % 2) * celda * 0.5;
+        const x = col * celda - celda * 0.5 + sangria + (Math.random() - 0.5) * celda * 0.24;
+        const y = vh - (fila + 1) * celda + (Math.random() - 0.5) * celda * 0.2;
+        el.style.setProperty("--x",  `${x}px`);
+        el.style.setProperty("--y",  `${y}px`);
+        el.style.setProperty("--r0", `${(Math.random() - 0.5) * 120}deg`);
+        el.style.setProperty("--r",  `${(Math.random() - 0.5) * 70}deg`);
+        // Más grandes que la celda a propósito: se solapan y no quedan huecos.
+        el.style.fontSize = `${celda * (1.02 + Math.random() * 0.32)}px`;
+
+        // Cada uno cae a su ritmo, así que siempre hay muchos en el aire.
+        const dur    = 1.2 + Math.random() * 0.7;
+        const salida = i * intervalo;
+        el.style.setProperty("--dur",   `${dur}s`);
+        el.style.setProperty("--delay", `${salida}ms`);
+
+        // Para el vaciado: los de abajo se van primero, con algo de deriva.
+        el.style.setProperty("--salida", `${fila * 38 + Math.random() * 60}ms`);
+        el.style.setProperty("--dx",     `${(Math.random() - 0.5) * 90}px`);
+        el.style.setProperty("--giro",   `${(Math.random() - 0.5) * 260}deg`);
+
+        ultimoAterrizaje = Math.max(ultimoAterrizaje, salida + dur * 1000);
+        layer.appendChild(el);
+      });
+
+      const vaciar = ultimoAterrizaje + JAR_ESPERA_MS;
+      const finVaciado = filas * 38 + 60 + 850;
+
+      setTimeout(() => layer.classList.add("is-draining"), vaciar);
+      setTimeout(() => {
+        layer.classList.remove("is-draining");
+        layer.innerHTML = "";
+        layer.dataset.lleno = "0";
+      }, vaciar + finVaciado + 120);
+    }
+
+    /* =======================================================================
+       11. CONTROLES DEL MÓVIL — pantalla de bloqueo y notificación
+       ======================================================================= */
+    function setupMediaSession(player, list) {
+      if (!("mediaSession" in navigator)) return;
+      const ms = navigator.mediaSession;
+
+      // Portada: el emoji de la canción sobre su propio degradado.
+      function portada(song) {
+        try {
+          const c = document.createElement("canvas");
+          c.width = c.height = 512;
+          const g = c.getContext("2d");
+          const grad = g.createLinearGradient(0, 0, 512, 512);
+          grad.addColorStop(0, song.palette.from);
+          grad.addColorStop(1, song.palette.to);
+          g.fillStyle = grad;
+          g.fillRect(0, 0, 512, 512);
+          g.font = "300px serif";
+          g.textAlign = "center";
+          g.textBaseline = "middle";
+          g.fillText(song.emojis[0] ?? "❤", 256, 282);
+          return [{ src: c.toDataURL("image/png"), sizes: "512x512", type: "image/png" }];
+        } catch {
+          return [];
+        }
+      }
+
+      player.onSong((song) => {
+        if (!song) return;
+        ms.metadata = new MediaMetadata({
+          title: song.title,
+          artist: song.artist === "—" ? "" : song.artist,
+          album: "Vania Bajita ❤️",
+          artwork: portada(song),
+        });
+      });
+
+      player.onState((state) => {
+        ms.playbackState = state === "playing" ? "playing" : "paused";
+      });
+
+      const accion = (nombre, fn) => { try { ms.setActionHandler(nombre, fn); } catch {} };
+      const saltar = (s) => {
+        const { duration, currentTime } = player.audio;
+        if (!Number.isFinite(duration)) return;
+        player.audio.currentTime = Math.max(0, Math.min(duration, currentTime + s));
+      };
+
+      accion("play",  () => player.play());
+      accion("pause", () => player.pause());
+      accion("previoustrack", () => player.current && list.go(list.prevOf(player.current.id)));
+      accion("nexttrack",     () => player.current && list.go(list.nextOf(player.current.id)));
+      accion("seekbackward", (d) => saltar(-(d?.seekOffset ?? 10)));
+      accion("seekforward",  (d) => saltar(d?.seekOffset ?? 10));
+      accion("seekto", (d) => {
+        if (d?.seekTime != null) player.audio.currentTime = d.seekTime;
+      });
+    }
+
+    /* =======================================================================
+       12. TECLADO
+       ======================================================================= */
+    function setupKeyboard(player, list) {
+      document.addEventListener("keydown", (e) => {
+        // No secuestrar las teclas mientras se escribe en el buscador.
+        const t = e.target;
+        if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+        const saltar = (s) => {
+          const { duration, currentTime } = player.audio;
+          if (!Number.isFinite(duration)) return;
+          player.audio.currentTime = Math.max(0, Math.min(duration, currentTime + s));
+        };
+
+        switch (e.key) {
+          case " ":
+          case "k":
+          case "K":
+            if (!player.current) return;
+            e.preventDefault();
+            player.toggle();
+            break;
+          case "ArrowRight": e.preventDefault(); saltar(10);  break;
+          case "ArrowLeft":  e.preventDefault(); saltar(-10); break;
+          case "ArrowDown":
+            if (!player.current) return;
+            e.preventDefault();
+            list.go(list.nextOf(player.current.id));
+            break;
+          case "ArrowUp":
+            if (!player.current) return;
+            e.preventDefault();
+            list.go(list.prevOf(player.current.id));
+            break;
+        }
+      });
+    }
+
+    /* =======================================================================
+       13. ARRANQUE
        ======================================================================= */
     function typeInto(el, text, speed = 65) {
       el.textContent = "";
@@ -1389,8 +1903,10 @@
       const list   = setupSongList(player, reveal);
 
       setupControls(player, list);
-      setupBubbles();
+      setupBubbles(jarBurst);
       setupAmbient(player);
+      setupMediaSession(player, list);
+      setupKeyboard(player, list);
 
       // El título de la tarjeta se reescribe cada vez que cambia la canción.
       const titleEl = document.getElementById("title");
