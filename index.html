@@ -1,85 +1,1410 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vania Bajita ❤️</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>" />
-    <meta name="theme-color" content="#fbcfe8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin>(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))n(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const m of a.addedNodes)m.tagName==="LINK"&&m.rel==="modulepreload"&&n(m)}).observe(document,{childList:!0,subtree:!0});function r(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(i){if(i.ep)return;i.ep=!0;const a=r(i);fetch(i.href,a)}})();class j{audio;current=null;state="idle";stateListeners=new Set;songListeners=new Set;constructor(e){this.audio=e,e.addEventListener("play",()=>this.setState("playing")),e.addEventListener("pause",()=>this.setState("paused")),e.addEventListener("ended",()=>this.setState("paused"))}async play(e){e&&e.id!==this.current?.id&&(this.current=e,this.audio.src=e.file,this.dispatchSong());try{await this.audio.play()}catch{}}pause(){this.audio.pause()}toggle(){this.current&&(this.audio.paused?this.play():this.pause())}seek(e){Number.isFinite(this.audio.duration)&&(this.audio.currentTime=e*this.audio.duration)}onState(e){return this.stateListeners.add(e),()=>this.stateListeners.delete(e)}onSong(e){return this.songListeners.add(e),()=>this.songListeners.delete(e)}onEnded(e){return this.audio.addEventListener("ended",e),()=>this.audio.removeEventListener("ended",e)}setState(e){this.state!==e&&(this.state=e,this.stateListeners.forEach(r=>r(e)))}dispatchSong(){this.songListeners.forEach(e=>e(this.current))}}const l=t=>`./${encodeURIComponent(t)}`,u=[{id:"220",title:"220",artist:"keshi",file:l("220.mp3"),emojis:["🪐","💙","🛸","✨"],palette:{from:"#1c3a8a",to:"#0a1a3a",accent:"#7aa6ff",glow:"#3b6bd9"}},{id:"505",title:"505",artist:"Arctic Monkeys",file:l("505.mp3"),emojis:["🕰️","🤍","🎸","🌙"],palette:{from:"#0369a1",to:"#0a1a2e",accent:"#7dd3fc",glow:"#0ea5e9"}},{id:"bulls",title:"Bulls In The Bronx",artist:"Pierce The Veil",file:l("BULLS IN THE BRONX.mp3"),emojis:["🤘","🎸","🖤","🌹"],palette:{from:"#52525b",to:"#18181b",accent:"#f4f4f5",glow:"#a1a1aa"}},{id:"consume",title:"Consume",artist:"Chase Atlantic",file:l("CONSUME.mp3"),emojis:["🌙","🍷","🖤","🔥"],palette:{from:"#3f0e13",to:"#1a0508",accent:"#f43f5e",glow:"#be123c"}},{id:"daylight",title:"Daylight",artist:"David Kushner",file:l("DAYLIGHT.mp3"),emojis:["☀️","💛","🌅","✨"],palette:{from:"#fbbf24",to:"#ea580c",accent:"#fde68a",glow:"#fb923c"}},{id:"eres-tu",title:"Eres Tú",artist:"Carla Morrison",file:l("ERES TÚ.mp3"),emojis:["🌻","💖","🌷","🌿"],palette:{from:"#a7f3d0",to:"#065f46",accent:"#fbcfe8",glow:"#34d399"}},{id:"gimme",title:"Gimme Love",artist:"Joji",file:l("GIMME LOVE.mp3"),emojis:["🚀","❤️","💫","🏃"],palette:{from:"#d946ef",to:"#581c87",accent:"#f0abfc",glow:"#c026d3"}},{id:"her",title:"Her",artist:"—",file:l("HER.mp3"),emojis:["👑","💖","🌟","🦋"],palette:{from:"#e879f9",to:"#86198f",accent:"#fae8ff",glow:"#d946ef"}},{id:"sorry",title:"I Love You, I'm Sorry",artist:"Gracie Abrams",file:l("I LOVE YOU IM SORRY.mp3"),emojis:["🥺","🎀","🩹","🤍"],palette:{from:"#e4e4e7",to:"#52525b",accent:"#fda4af",glow:"#a1a1aa"}},{id:"loveee",title:"I Loveee",artist:"—",file:l("I LOVEEE.mp3"),emojis:["💖","🔥","😻","✨"],palette:{from:"#f97316",to:"#9a3412",accent:"#fed7aa",glow:"#fb923c"}},{id:"red",title:"I See Red",artist:"Everybody Loves An Outlaw",file:l("I SEE RED.mp3"),emojis:["🔥","🌹","💋","🍷"],palette:{from:"#b91c1c",to:"#450a0a",accent:"#fecaca",glow:"#ef4444"}},{id:"wanna",title:"I Wanna Be Yours",artist:"Arctic Monkeys",file:l("I WANNA BE YOUR.mp3"),emojis:["🖤","⛓️","🎸","🔥"],palette:{from:"#374151",to:"#0f172a",accent:"#fda4af",glow:"#64748b"}},{id:"melting",title:"Melting",artist:"Kali Uchis",file:l("MELTING.mp3"),emojis:["🫠","🍦","🤎","🌙"],palette:{from:"#fecdd3",to:"#9f1239",accent:"#fff1f2",glow:"#fb7185"}},{id:"my-love",title:"My Love Mine All Mine",artist:"Mitski",file:l("MY LOVE MINE.mp3"),emojis:["🌙","🤍","🎹","⭐"],palette:{from:"#52525b",to:"#18181b",accent:"#e4e4e7",glow:"#a1a1aa"}},{id:"nda",title:"NDA",artist:"Billie Eilish",file:l("NDA.mp3"),emojis:["🕶️","🖤","🤫","🌃"],palette:{from:"#22c55e",to:"#14532d",accent:"#bbf7d0",glow:"#4ade80"}},{id:"out",title:"Out Of My League",artist:"Fitz and The Tantrums",file:l("OUT OF MY LEAGUE.mp3"),emojis:["🕺","💙","🌟","🎷"],palette:{from:"#86efac",to:"#14532d",accent:"#dbeafe",glow:"#4ade80"}},{id:"sienna",title:"Sienna",artist:"—",file:l("SIENNA.mp3"),emojis:["🌅","🧡","🍸","🦋"],palette:{from:"#f472b6",to:"#9d174d",accent:"#fed7aa",glow:"#ec4899"}},{id:"sweater",title:"Sweater Weather",artist:"The Neighbourhood",file:l("SWEATER WEATHER.mp3"),emojis:["🧥","🌧️","🖤","🌲"],palette:{from:"#d1d5db",to:"#1f2937",accent:"#f9fafb",glow:"#9ca3af"}},{id:"falling",title:"This Is What Falling In Love Feels Like",artist:"JVKE",file:l("TIWFILFL.mp3"),emojis:["🎹","💖","⏳","✨"],palette:{from:"#e9d5ff",to:"#581c87",accent:"#fbcfe8",glow:"#c084fc"}},{id:"wildflower",title:"Wildflower",artist:"Billie Eilish",file:l("WILDFLOWER.mp3"),emojis:["🌸","🌼","🌿","💚"],palette:{from:"#a3e635",to:"#365314",accent:"#ecfccb",glow:"#84cc16"}},{id:"snap",title:"Snap Out Of It",artist:"Arctic Monkeys",file:l("SNAP OUT OF IT.mp3"),emojis:["🎸","⚡","🖤","💔"],palette:{from:"#fb923c",to:"#1a1a1a",accent:"#fed7aa",glow:"#ea580c"}},{id:"roommates",title:"Roommates",artist:"—",file:l("ROOMMATES.mp3"),emojis:["🏠","☕","🌙","💭"],palette:{from:"#fde68a",to:"#78350f",accent:"#fff7e6",glow:"#d97706"}},{id:"eres",title:"Eres",artist:"Café Tacvba",file:l("ERES.mp3"),emojis:["🌹","💖","✨","🌟"],palette:{from:"#fda4af",to:"#7f1d1d",accent:"#ffe4e6",glow:"#dc2626"}},{id:"momento-azul",title:"Momento Azul",artist:"—",file:l("MOMENTO AZUL.mp3"),emojis:["💙","🌊","⭐","🌌"],palette:{from:"#93c5fd",to:"#1e3a8a",accent:"#dbeafe",glow:"#3b82f6"}},{id:"happier",title:"Happier Than Ever",artist:"Billie Eilish",file:l("HAPPIER THAN EVER.mp3"),emojis:["🖤","⚡","😢","💔"],palette:{from:"#cbd5e1",to:"#0c0c0c",accent:"#f1f5f9",glow:"#475569"}}],b=["No me caes tan mal xd 👻","Vania bajita 👑","Eres una crack 💪","Nunca cambies 🥰","Gracias por aguantarme 🤝","You are cool 😎","Me alegras el día 🌞","Sigue brillando 💫","Por las risas 😂","Vania power 🚀","Eres genial ✨","Tu sonrisa salva 🌸","Gracias por enseñarme normas APA ❤️","Sigue siendo así 🌷","Buenas vibras siempre 🌈"],E=document.documentElement;function h(t){if(!t)return;const{from:e,to:r,accent:n,glow:i}=t.palette;E.style.setProperty("--c-from",e),E.style.setProperty("--c-to",r),E.style.setProperty("--c-accent",n),E.style.setProperty("--c-glow",i)}function O(t,e){const r=document.getElementById("nowCover"),n=document.getElementById("nowTitle"),i=document.getElementById("nowArtist"),a=document.getElementById("now"),m=document.getElementById("listToggle"),s=document.getElementById("listPanel"),f=document.getElementById("listOverlay"),d=document.getElementById("listClose"),g=document.getElementById("listItems");g.innerHTML=u.map((o,c)=>`
-    <button class="list-item" data-id="${o.id}" type="button">
-      <span class="list-item__emoji" aria-hidden="true">${o.emojis[0]??"❤"}</span>
-      <div class="list-item__meta">
-        <p class="list-item__title">${o.title}</p>
-        <p class="list-item__artist">${o.artist}</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vania Bajita ❤️</title>
+  <meta name="theme-color" content="#fbcfe8" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =========================================================================
+       1. TOKENS
+       Las cuatro variables de color (--c-from / --c-to / --c-accent / --c-glow)
+       las reescribe el JS en cada canción, con la paleta de esa canción.
+       ========================================================================= */
+    :root {
+      --c-from:   #fbcfe8;
+      --c-to:     #f472b6;
+      --c-accent: #be185d;
+      --c-glow:   #ec4899;
+
+      --c-ink:    #2d0a1f;
+      --c-mute:   rgba(45, 10, 31, .65);
+      --c-bg:     #ffe4ef;
+      --c-text:   #4a0a1f;
+      --c-text-2: #8b0024;
+
+      --ease:     cubic-bezier(.4, 0, .2, 1);
+      --ease-out: cubic-bezier(.16, 1, .3, 1);
+      --t: .6s;
+    }
+
+    /* =========================================================================
+       2. BASE
+       ========================================================================= */
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--c-ink);
+      background: var(--c-bg);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 20% 10%, color-mix(in srgb, var(--c-from) 88%, transparent) 0%, transparent 65%),
+        radial-gradient(ellipse at 80% 90%, color-mix(in srgb, var(--c-glow) 82%, transparent) 0%, transparent 65%),
+        radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--c-accent) 35%, transparent) 0%, transparent 85%),
+        url(https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg) center / cover no-repeat fixed,
+        var(--c-bg);
+      transition: background .8s var(--ease);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* =========================================================================
+       3. TARJETA PRINCIPAL
+       ========================================================================= */
+    .stage {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+      padding: clamp(22px, 3.2vw, 32px);
+      border-radius: 28px;
+      background: #fffcfeeb;
+      border: 1px solid rgba(255, 255, 255, .95);
+      box-shadow:
+        0 30px 80px -20px #be185d66,
+        0 2px 8px #be185d26;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card__eyebrow {
+      font-size: 10px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--c-mute);
+      margin: 0 0 .8rem;
+    }
+
+    .card__title {
+      font-family: "Cormorant Garamond", serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: clamp(22px, 5.5vw, 36px);
+      line-height: 1.1;
+      margin: 0;
+      color: var(--c-text-2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      letter-spacing: -.01em;
+    }
+
+    .heart {
+      display: inline-block;
+    }
+
+    .card__sub {
+      margin: .6rem 0 1.6rem;
+      color: var(--c-mute);
+      font-style: italic;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(13px, 1.6vw, 16px);
+    }
+
+    /* =========================================================================
+       4. NOW PLAYING
+       ========================================================================= */
+    .now {
+      margin-bottom: 1.4rem;
+    }
+
+    .now__cover {
+      font-size: clamp(64px, 12vw, 92px);
+      line-height: 1;
+      margin: 0 0 .4rem;
+      filter: drop-shadow(0 6px 18px color-mix(in srgb, var(--c-glow) 40%, transparent));
+      transition: transform .4s var(--ease-out);
+      user-select: none;
+    }
+
+    .now.is-playing .now__cover {
+      animation: nowPulse 3.5s ease-in-out infinite;
+    }
+
+    @keyframes nowPulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.08); }
+    }
+
+    .now__title {
+      font-family: "Cormorant Garamond", serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: clamp(24px, 2.8vw, 30px);
+      margin: 0;
+      color: var(--c-text);
+      line-height: 1.2;
+    }
+
+    .now__artist {
+      font-size: 10px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      margin: 6px 0 0;
+      color: var(--c-mute);
+    }
+
+    /* =========================================================================
+       5. CONTROLES DEL REPRODUCTOR
+       ========================================================================= */
+    .player {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: .9rem;
+    }
+
+    .player__btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--c-text);
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .18s var(--ease);
+    }
+
+    .player__btn:hover {
+      background: #4a0a1f1a;
+    }
+
+    .player__btn--play {
+      width: 54px;
+      height: 54px;
+      background: var(--c-text-2);
+      color: #fff;
+      font-size: 18px;
+      padding-left: 3px;
+      box-shadow: 0 8px 20px -6px #4a0a1f73;
+    }
+
+    .player__btn--play:hover {
+      background: var(--c-text);
+    }
+
+    .player__bar {
+      width: 100%;
+      height: 4px;
+      background: #4a0a1f2e;
+      border-radius: 999px;
+      overflow: hidden;
+      cursor: pointer;
+      margin-bottom: 1.2rem;
+    }
+
+    .player__fill {
+      height: 100%;
+      background: var(--c-text-2);
+      width: 0%;
+      transition: width .12s linear;
+    }
+
+    /* =========================================================================
+       6. BOTÓN "VER TODAS LAS CANCIONES"
+       ========================================================================= */
+    .list-toggle {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(74, 10, 31, .35);
+      color: var(--c-text);
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background .18s var(--ease), border-color .18s var(--ease);
+    }
+
+    .list-toggle:hover {
+      background: #4a0a1f14;
+      border-color: var(--c-text);
+    }
+
+    .list-toggle__chev {
+      font-size: 10px;
+    }
+
+    /* =========================================================================
+       7. PANEL DE CANCIONES (modal que sube desde abajo)
+       ========================================================================= */
+    .list-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .4s var(--ease);
+    }
+
+    .list-panel.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .list-panel__overlay {
+      position: absolute;
+      inset: 0;
+      background: #2d0a1f59;
+    }
+
+    .list-panel__inner {
+      position: absolute;
+      left: 50%;
+      bottom: 4vh;
+      transform: translate(-50%) translateY(30px);
+      width: min(440px, calc(100vw - 32px));
+      max-height: 78vh;
+      background: #fffaf8fa;
+      border-radius: 26px;
+      padding: 18px 16px;
+      box-shadow: 0 30px 80px #be185d59;
+      display: flex;
+      flex-direction: column;
+      transition: transform .45s var(--ease-out);
+    }
+
+    .list-panel.is-open .list-panel__inner {
+      transform: translate(-50%) translateY(0);
+    }
+
+    .list-panel__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px 12px;
+      border-bottom: 1px solid rgba(190, 24, 93, .1);
+    }
+
+    .list-panel__title {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 22px;
+      margin: 0;
+      color: var(--c-accent);
+    }
+
+    .list-panel__close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #be185d14;
+      color: var(--c-accent);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .list-panel__close:hover {
+      background: #be185d2e;
+    }
+
+    .list-panel__items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 4px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--c-accent) transparent;
+    }
+
+    .list-panel__items::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .list-panel__items::-webkit-scrollbar-thumb {
+      background: color-mix(in srgb, var(--c-accent) 35%, transparent);
+      border-radius: 999px;
+    }
+
+    /* --- fila de la lista --- */
+    .list-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      text-align: left;
+      color: var(--c-ink);
+      transition: background .16s var(--ease);
+    }
+
+    .list-item:hover {
+      background: #be185d14;
+    }
+
+    .list-item.is-active {
+      background: var(--c-accent);
+      color: #fff;
+    }
+
+    .list-item.is-active .list-item__artist {
+      color: #ffffffbf;
+    }
+
+    .list-item__emoji {
+      font-size: 24px;
+      flex: 0 0 32px;
+      text-align: center;
+    }
+
+    .list-item__meta {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .list-item__title {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 17px;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+
+    .list-item__artist {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin: 2px 0 0;
+      color: var(--c-mute);
+    }
+
+    .list-item__num {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 12px;
+      opacity: .55;
+      flex: 0 0 auto;
+    }
+
+    /* =========================================================================
+       8. BURBUJAS DE MENSAJES
+       ========================================================================= */
+    .bubbles {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      padding: 11px 22px;
+      border-radius: 999px;
+      background: #fffcfeeb;
+      border: 1px solid rgba(74, 10, 31, .18);
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 19px;
+      color: var(--c-text-2);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      animation: bubbleFloat 9s ease-out forwards;
+      will-change: transform, opacity;
+      box-shadow: 0 6px 20px -8px #4a0a1f4d;
+    }
+
+    @keyframes bubbleFloat {
+      0%   { opacity: 0; transform: translateY(20px); }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-100px); }
+    }
+
+    /* =========================================================================
+       9. EMOJIS DE AMBIENTE (suben mientras suena la canción)
+       ========================================================================= */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ambient-emoji {
+      position: absolute;
+      bottom: -40px;
+      font-size: 24px;
+      opacity: 0;
+      animation: ambientRise 9s linear forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes ambientRise {
+      0%   { opacity: 0;   transform: translateY(0) rotate(0); }
+      15%  { opacity: .85; }
+      85%  { opacity: .85; }
+      100% { opacity: 0;   transform: translateY(calc(-100vh - 80px)) rotate(20deg); }
+    }
+
+    /* =========================================================================
+       10. REVEAL — pantalla completa al elegir canción
+       ========================================================================= */
+    .reveal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .5s var(--ease);
+    }
+
+    .reveal.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reveal__bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, var(--c-from) 0%, var(--c-to) 60%, var(--c-accent) 100%);
+      opacity: .95;
+    }
+
+    .reveal__inner {
+      position: relative;
+      text-align: center;
+      padding: 0 6vw;
+      z-index: 1;
+    }
+
+    .reveal__text {
+      font-family: "Cormorant Garamond", serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: min(7.6vw, 118px);
+      line-height: 1.1;
+      margin: 0;
+      color: #fff;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+      white-space: nowrap;
+      letter-spacing: -.012em;
+    }
+
+    .reveal__song {
+      margin: 1.6rem 0 0;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(20px, 2.6vw, 28px);
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+    }
+
+    .reveal__emojis {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 34px;
+      top: 50%;
+      left: 50%;
+      opacity: 0;
+      animation: emojiFly 2.4s ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes emojiFly {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(.4); }
+      15%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--r)) scale(1); }
+    }
+
+    /* =========================================================================
+       11. ACCESIBILIDAD
+       ========================================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *:before,
+      *:after {
+        animation-duration: 1ms !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======================================================================
+       TARJETA PRINCIPAL
+       ====================================================================== -->
+  <div class="stage">
+    <div class="card">
+      <p class="card__eyebrow">para ti</p>
+      <h1 class="card__title" id="title">Vania, I love you <span class="heart">❤</span></h1>
+      <p class="card__sub">hay canciones igual de bajitas que tú</p>
+
+      <!-- NOW PLAYING -->
+      <div class="now" id="now">
+        <div class="now__cover" id="nowCover">♥</div>
+        <p class="now__title" id="nowTitle">elige una canción</p>
+        <p class="now__artist" id="nowArtist">— silencio —</p>
       </div>
-      <span class="list-item__num">${String(c+1).padStart(2,"0")}</span>
-    </button>
-  `).join("");const w=Array.from(g.querySelectorAll(".list-item"));function v(o){for(const c of w)c.classList.toggle("is-active",c.dataset.id===o)}function T(o){h(o),v(o.id),L(o),e.show(o),t.play(o),y()}w.forEach(o=>{o.addEventListener("click",()=>{const c=u.find(p=>p.id===o.dataset.id);c&&T(c)})});function L(o){if(!o){r.textContent="♥",n.textContent="elige una canción",i.textContent="— silencio —";return}r.textContent=o.emojis[0]??"❤",n.textContent=o.title,i.textContent=o.artist}t.onState(o=>{a.classList.toggle("is-playing",o==="playing")});function A(){s.classList.add("is-open"),s.setAttribute("aria-hidden","false"),g.querySelector(".list-item.is-active")?.scrollIntoView({block:"center"})}function y(){s.classList.remove("is-open"),s.setAttribute("aria-hidden","true")}return m.addEventListener("click",A),f.addEventListener("click",y),d.addEventListener("click",y),document.addEventListener("keydown",o=>{o.key==="Escape"&&s.classList.contains("is-open")&&y()}),{setActive(o){const c=u.find(p=>p.id===o);c&&(h(c),v(o),L(c))},nextOf(o){const c=u.findIndex(p=>p.id===o);return u[(c+1)%u.length]},prevOf(o){const c=u.findIndex(p=>p.id===o);return u[(c-1+u.length)%u.length]}}}function B(t,e){const r=document.getElementById("play"),n=document.getElementById("prev"),i=document.getElementById("next"),a=document.getElementById("bar"),m=document.getElementById("fill");r&&(t.onState(s=>{r.textContent=s==="playing"?"❚❚":"▶",r.setAttribute("aria-label",s==="playing"?"pausar":"reproducir")}),r.addEventListener("click",()=>{t.current&&t.toggle()}),n.addEventListener("click",()=>{if(!t.current)return;const s=e.prevOf(t.current.id);h(s),e.setActive(s.id),t.play(s)}),i.addEventListener("click",()=>{if(!t.current)return;const s=e.nextOf(t.current.id);h(s),e.setActive(s.id),t.play(s)}),t.onEnded(()=>{if(!t.current)return;const s=e.nextOf(t.current.id);h(s),e.setActive(s.id),t.play(s)}),t.audio.addEventListener("timeupdate",()=>{if(!Number.isFinite(t.audio.duration)||t.audio.duration===0)return;const s=t.audio.currentTime/t.audio.duration;m.style.width=`${s*100}%`}),a.addEventListener("click",s=>{const f=a.getBoundingClientRect(),d=(s.clientX-f.left)/f.width;t.seek(Math.max(0,Math.min(1,d)))}))}const x=7,N=1800,C=9e3;function P(){const t=document.getElementById("bubbles");if(!t)return;const e=new Set;function r(){if(e.size>=x||document.hidden)return;const n=document.createElement("div");n.className="bubble",n.textContent=b[Math.floor(Math.random()*b.length)]??"",n.style.left=`${Math.random()*70+10}vw`,n.style.top=`${Math.random()*70+15}vh`,t.appendChild(n),e.add(n),setTimeout(()=>{e.delete(n),n.remove()},C)}setInterval(r,N),setTimeout(r,800)}const R=600,k=9500;function _(t){const e=document.getElementById("ambient");if(!e)return;let r=["❤"],n,i=!1;t.onSong(f=>{r=f?.emojis.length?f.emojis:["❤"]}),t.onState(f=>{const d=i;i=f==="playing",i&&!d&&m(),!i&&d&&s()});function a(){if(!i||document.hidden)return;const f=r[Math.floor(Math.random()*r.length)]??"❤",d=document.createElement("div");d.className="ambient-emoji",d.textContent=f,d.style.left=`${5+Math.random()*90}vw`,d.style.fontSize=`${20+Math.random()*14}px`,d.style.animationDuration=`${8+Math.random()*4}s`,e.appendChild(d),window.setTimeout(()=>d.remove(),k)}function m(){n||(a(),n=window.setInterval(a,R))}function s(){n&&window.clearInterval(n),n=void 0}}const I="iloveyoualotsoverymuch",$=70,F=3400,S=36;class W{el=document.getElementById("reveal");text=document.getElementById("revealText");songLabel=document.getElementById("revealSong");emojiLayer=document.getElementById("revealEmojis");typeTimer;hideTimer;constructor(){this.el.addEventListener("click",()=>this.hide())}show(e){window.clearTimeout(this.typeTimer),window.clearTimeout(this.hideTimer),this.text.textContent="",this.songLabel.textContent=e.artist==="—"?e.title:`${e.title} · ${e.artist}`,this.emojiLayer.innerHTML="",this.el.classList.add("is-active"),this.el.setAttribute("aria-hidden","false");let r=0;const n=()=>{this.text.textContent=I.slice(0,r+1),r++,r<I.length&&(this.typeTimer=window.setTimeout(n,$))};n();for(let i=0;i<S;i++){const a=document.createElement("span");a.className="emoji",a.textContent=e.emojis[i%e.emojis.length]??"✨";const m=i/S*Math.PI*2+Math.random()*.4,s=200+Math.random()*220;a.style.setProperty("--tx",`${Math.cos(m)*s-18}px`),a.style.setProperty("--ty",`${Math.sin(m)*s-18}px`),a.style.setProperty("--r",`${(Math.random()-.5)*720}deg`),a.style.animationDelay=`${Math.random()*.25}s`,this.emojiLayer.appendChild(a)}this.hideTimer=window.setTimeout(()=>this.hide(),F)}hide(){this.el.classList.remove("is-active"),this.el.setAttribute("aria-hidden","true"),window.clearTimeout(this.typeTimer),window.clearTimeout(this.hideTimer)}}function M(){const t=document.getElementById("audio"),e=new j(t),r=new W,n=O(e,r);B(e,n),P(),_(e);const i=document.getElementById("title");e.onSong(a=>{!a||!i||H(i,"iloveyoualotsoverymuch")})}function H(t,e,r=65){t.textContent="";let n=0;const i=()=>{t.textContent=e.slice(0,n+1),n++,n<e.length&&window.setTimeout(i,r)};i()}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",M):M();</script>
-    <style rel="stylesheet" crossorigin>:root{--c-from: #fbcfe8;--c-to: #f472b6;--c-accent: #be185d;--c-glow: #ec4899;--c-ink: #2d0a1f;--c-mute: rgba(45, 10, 31, .65);--c-bg: #ffe4ef;--c-text: #4a0a1f;--c-text-2: #8b0024;--ease: cubic-bezier(.4, 0, .2, 1);--ease-out: cubic-bezier(.16, 1, .3, 1);--t: .6s}*,*:before,*:after{box-sizing:border-box}html,body{margin:0;padding:0;min-height:100vh;font-family:Inter,system-ui,sans-serif;color:var(--c-ink);background:var(--c-bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,color-mix(in srgb,var(--c-from) 88%,transparent) 0%,transparent 65%),radial-gradient(ellipse at 80% 90%,color-mix(in srgb,var(--c-glow) 82%,transparent) 0%,transparent 65%),radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--c-accent) 35%,transparent) 0%,transparent 85%),url(https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg) center / cover no-repeat fixed,var(--c-bg);transition:background .8s var(--ease)}button{font-family:inherit;cursor:pointer}.stage{min-height:100vh;display:grid;place-items:center;padding:32px 20px}.card{width:100%;max-width:440px;padding:clamp(22px,3.2vw,32px);border-radius:28px;background:#fffcfeeb;border:1px solid rgba(255,255,255,.95);box-shadow:0 30px 80px -20px #be185d66,0 2px 8px #be185d26;text-align:center;position:relative;z-index:2}.card__eyebrow{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--c-mute);margin:0 0 .8rem}.card__title{font-family:Cormorant Garamond,serif;font-style:normal;font-weight:600;font-size:clamp(22px,5.5vw,36px);line-height:1.1;margin:0;color:var(--c-text-2);white-space:nowrap;overflow:hidden;text-overflow:clip;letter-spacing:-.01em}.heart{display:inline-block}.card__sub{margin:.6rem 0 1.6rem;color:var(--c-mute);font-style:italic;font-family:Cormorant Garamond,serif;font-size:clamp(13px,1.6vw,16px)}.now{margin-bottom:1.4rem}.now__cover{font-size:clamp(64px,12vw,92px);line-height:1;margin:0 0 .4rem;filter:drop-shadow(0 6px 18px color-mix(in srgb,var(--c-glow) 40%,transparent));transition:transform .4s var(--ease-out);user-select:none}.now.is-playing .now__cover{animation:nowPulse 3.5s ease-in-out infinite}@keyframes nowPulse{0%,to{transform:scale(1)}50%{transform:scale(1.08)}}.now__title{font-family:Cormorant Garamond,serif;font-style:normal;font-weight:600;font-size:clamp(24px,2.8vw,30px);margin:0;color:var(--c-text);line-height:1.2}.now__artist{font-size:10px;letter-spacing:.25em;text-transform:uppercase;margin:6px 0 0;color:var(--c-mute)}.player{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:.9rem}.player__btn{width:40px;height:40px;border-radius:50%;border:none;background:transparent;color:var(--c-text);font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .18s var(--ease)}.player__btn:hover{background:#4a0a1f1a}.player__btn--play{width:54px;height:54px;background:var(--c-text-2);color:#fff;font-size:18px;padding-left:3px;box-shadow:0 8px 20px -6px #4a0a1f73}.player__btn--play:hover{background:var(--c-text)}.player__bar{width:100%;height:4px;background:#4a0a1f2e;border-radius:999px;overflow:hidden;cursor:pointer;margin-bottom:1.2rem}.player__fill{height:100%;background:var(--c-text-2);width:0%;transition:width .12s linear}.list-toggle{width:100%;background:transparent;border:1px solid rgba(74,10,31,.35);color:var(--c-text);padding:11px 18px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:background .18s var(--ease),border-color .18s var(--ease)}.list-toggle:hover{background:#4a0a1f14;border-color:var(--c-text)}.list-toggle__chev{font-size:10px}.list-panel{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:0;transition:opacity .4s var(--ease)}.list-panel.is-open{opacity:1;pointer-events:auto}.list-panel__overlay{position:absolute;inset:0;background:#2d0a1f59}.list-panel__inner{position:absolute;left:50%;bottom:4vh;transform:translate(-50%) translateY(30px);width:min(440px,calc(100vw - 32px));max-height:78vh;background:#fffaf8fa;border-radius:26px;padding:18px 16px;box-shadow:0 30px 80px #be185d59;display:flex;flex-direction:column;transition:transform .45s var(--ease-out)}.list-panel.is-open .list-panel__inner{transform:translate(-50%) translateY(0)}.list-panel__head{display:flex;align-items:center;justify-content:space-between;padding:4px 8px 12px;border-bottom:1px solid rgba(190,24,93,.1)}.list-panel__title{font-family:Cormorant Garamond,serif;font-style:italic;font-weight:500;font-size:22px;margin:0;color:var(--c-accent)}.list-panel__close{width:32px;height:32px;border-radius:50%;border:none;background:#be185d14;color:var(--c-accent);font-size:14px;display:flex;align-items:center;justify-content:center}.list-panel__close:hover{background:#be185d2e}.list-panel__items{flex:1;overflow-y:auto;padding:8px 4px;scrollbar-width:thin;scrollbar-color:var(--c-accent) transparent}.list-panel__items::-webkit-scrollbar{width:6px}.list-panel__items::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--c-accent) 35%,transparent);border-radius:999px}.list-item{width:100%;display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:14px;cursor:pointer;background:transparent;border:none;text-align:left;color:var(--c-ink);transition:background .16s var(--ease)}.list-item:hover{background:#be185d14}.list-item.is-active{background:var(--c-accent);color:#fff}.list-item.is-active .list-item__artist{color:#ffffffbf}.list-item__emoji{font-size:24px;flex:0 0 32px;text-align:center}.list-item__meta{min-width:0;flex:1}.list-item__title{font-family:Cormorant Garamond,serif;font-style:italic;font-size:17px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}.list-item__artist{font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin:2px 0 0;color:var(--c-mute)}.list-item__num{font-family:Cormorant Garamond,serif;font-style:italic;font-size:12px;opacity:.55;flex:0 0 auto}.bubbles{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}.bubble{position:absolute;padding:11px 22px;border-radius:999px;background:#fffcfeeb;border:1px solid rgba(74,10,31,.18);font-family:Cormorant Garamond,serif;font-style:italic;font-weight:600;font-size:19px;color:var(--c-text-2);white-space:nowrap;pointer-events:none;opacity:0;animation:bubbleFloat 9s ease-out forwards;will-change:transform,opacity;box-shadow:0 6px 20px -8px #4a0a1f4d}@keyframes bubbleFloat{0%{opacity:0;transform:translateY(20px)}10%{opacity:1}90%{opacity:1}to{opacity:0;transform:translateY(-100px)}}.ambient{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}.ambient-emoji{position:absolute;bottom:-40px;font-size:24px;opacity:0;animation:ambientRise 9s linear forwards;will-change:transform,opacity}@keyframes ambientRise{0%{opacity:0;transform:translateY(0) rotate(0)}15%{opacity:.85}85%{opacity:.85}to{opacity:0;transform:translateY(calc(-100vh - 80px)) rotate(20deg)}}.reveal{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .5s var(--ease)}.reveal.is-active{opacity:1;pointer-events:auto}.reveal__bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,var(--c-from) 0%,var(--c-to) 60%,var(--c-accent) 100%);opacity:.95}.reveal__inner{position:relative;text-align:center;padding:0 6vw;z-index:1}.reveal__text{font-family:Cormorant Garamond,serif;font-style:normal;font-weight:600;font-size:min(7.6vw,118px);line-height:1.1;margin:0;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.25);white-space:nowrap;letter-spacing:-.012em}.reveal__song{margin:1.6rem 0 0;font-family:Cormorant Garamond,serif;font-style:italic;font-weight:500;font-size:clamp(20px,2.6vw,28px);color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.3)}.reveal__emojis{position:absolute;inset:0;pointer-events:none;overflow:hidden}.emoji{position:absolute;font-size:34px;top:50%;left:50%;opacity:0;animation:emojiFly 2.4s ease-out forwards;will-change:transform,opacity}@keyframes emojiFly{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}15%{opacity:1}to{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--r)) scale(1)}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:1ms!important;transition-duration:1ms!important}}</style>
-  </head>
-  <body>
-    <div class="stage">
-      <div class="card">
-        <p class="card__eyebrow">para ti</p>
-        <h1 class="card__title" id="title">Vania, I love you <span class="heart">❤</span></h1>
-        <p class="card__sub">hay canciones igual de bajitas que tú</p>
 
-        <!-- NOW PLAYING — focal display -->
-        <div class="now" id="now">
-          <div class="now__cover" id="nowCover">♥</div>
-          <p class="now__title" id="nowTitle">elige una canción</p>
-          <p class="now__artist" id="nowArtist">— silencio —</p>
-        </div>
+      <!-- CONTROLES -->
+      <div class="player">
+        <button class="player__btn" id="prev" aria-label="anterior">‹</button>
+        <button class="player__btn player__btn--play" id="play" aria-label="reproducir">▶</button>
+        <button class="player__btn" id="next" aria-label="siguiente">›</button>
+      </div>
+      <div class="player__bar" id="bar">
+        <div class="player__fill" id="fill"></div>
+      </div>
 
-        <!-- CONTROLS -->
-        <div class="player">
-          <button class="player__btn" id="prev" aria-label="anterior">‹</button>
-          <button class="player__btn player__btn--play" id="play" aria-label="reproducir">▶</button>
-          <button class="player__btn" id="next" aria-label="siguiente">›</button>
-        </div>
-        <div class="player__bar" id="bar"><div class="player__fill" id="fill"></div></div>
+      <!-- ABRIR LISTA -->
+      <button class="list-toggle" id="listToggle" type="button">
+        <span>ver todas las canciones</span>
+        <span class="list-toggle__chev" aria-hidden="true">▾</span>
+      </button>
+    </div>
+  </div>
 
-        <!-- LIST OPENER -->
-        <button class="list-toggle" id="listToggle" type="button">
-          <span>ver todas las canciones</span>
-          <span class="list-toggle__chev" aria-hidden="true">▾</span>
+  <!-- ======================================================================
+       CAPAS DE FONDO
+       ====================================================================== -->
+  <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+  <div class="ambient" id="ambient" aria-hidden="true"></div>
+
+  <!-- ======================================================================
+       PANEL DE CANCIONES
+       ====================================================================== -->
+  <div class="list-panel" id="listPanel" aria-hidden="true">
+    <div class="list-panel__overlay" id="listOverlay"></div>
+    <div class="list-panel__inner" role="dialog" aria-label="canciones">
+      <header class="list-panel__head">
+        <h2 class="list-panel__title">elige una</h2>
+        <button class="list-panel__close" id="listClose" aria-label="cerrar">✕</button>
+      </header>
+      <div class="list-panel__items" id="listItems"></div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       REVEAL (pantalla completa)
+       ====================================================================== -->
+  <div class="reveal" id="reveal" aria-hidden="true">
+    <div class="reveal__bg"></div>
+    <div class="reveal__inner">
+      <p class="reveal__text" id="revealText"></p>
+      <p class="reveal__song" id="revealSong"></p>
+    </div>
+    <div class="reveal__emojis" id="revealEmojis"></div>
+  </div>
+
+  <audio id="audio" preload="metadata"></audio>
+
+  <script type="module">
+    /* =======================================================================
+       1. DATOS — CANCIONES
+       Cada canción trae su archivo, sus emojis y su paleta de 4 colores.
+       Los .mp3 van sueltos en esta misma carpeta, junto al index.html: el título
+       va en formato normal, pero el archivo SIEMPRE en mayúsculas.
+       Ordenadas por artista (A→Z) y, dentro de cada artista, por título.
+       Las de artista desconocido ("—") van al final.
+       ======================================================================= */
+    const songFile = (name) => `./${encodeURIComponent(name)}`;
+
+    const SONGS = [
+      {
+        id: "505", title: "505", artist: "Arctic Monkeys",
+        file: songFile("505.mp3"),
+        emojis: ["🕰️", "🤍", "🎸", "🌙"],
+        palette: { from: "#0369a1", to: "#0a1a2e", accent: "#7dd3fc", glow: "#0ea5e9" },
+      },
+      {
+        id: "wanna", title: "I Wanna Be Yours", artist: "Arctic Monkeys",
+        file: songFile("I WANNA BE YOUR.mp3"),
+        emojis: ["🖤", "⛓️", "🎸", "🔥"],
+        palette: { from: "#374151", to: "#0f172a", accent: "#fda4af", glow: "#64748b" },
+      },
+      {
+        id: "no-buses", title: "No Buses", artist: "Arctic Monkeys",
+        file: songFile("NO BUSES.mp3"),
+        emojis: ["🚌", "🎸", "🌧️", "🖤"],
+        palette: { from: "#d6d3d1", to: "#1c1917", accent: "#fafaf9", glow: "#a8a29e" },
+      },
+      {
+        id: "party-anthem", title: "No. 1 Party Anthem", artist: "Arctic Monkeys",
+        file: songFile("NO. 1 PARTY ANTHEM.mp3"),
+        emojis: ["🥃", "🎹", "🌃", "🖤"],
+        palette: { from: "#fbbf24", to: "#18181b", accent: "#fef3c7", glow: "#d97706" },
+      },
+      {
+        id: "snap", title: "Snap Out Of It", artist: "Arctic Monkeys",
+        file: songFile("SNAP OUT OF IT.mp3"),
+        emojis: ["🎸", "⚡", "🖤", "💔"],
+        palette: { from: "#fb923c", to: "#1a1a1a", accent: "#fed7aa", glow: "#ea580c" },
+      },
+      {
+        id: "happier", title: "Happier Than Ever", artist: "Billie Eilish",
+        file: songFile("HAPPIER THAN EVER.mp3"),
+        emojis: ["🖤", "⚡", "😢", "💔"],
+        palette: { from: "#cbd5e1", to: "#0c0c0c", accent: "#f1f5f9", glow: "#475569" },
+      },
+      {
+        id: "nda", title: "NDA", artist: "Billie Eilish",
+        file: songFile("NDA.mp3"),
+        emojis: ["🕶️", "🖤", "🤫", "🌃"],
+        palette: { from: "#22c55e", to: "#14532d", accent: "#bbf7d0", glow: "#4ade80" },
+      },
+      {
+        id: "wildflower", title: "Wildflower", artist: "Billie Eilish",
+        file: songFile("WILDFLOWER.mp3"),
+        emojis: ["🌸", "🌼", "🌿", "💚"],
+        palette: { from: "#a3e635", to: "#365314", accent: "#ecfccb", glow: "#84cc16" },
+      },
+      {
+        id: "eres", title: "Eres", artist: "Café Tacvba",
+        file: songFile("ERES.mp3"),
+        emojis: ["🌹", "💖", "✨", "🌟"],
+        palette: { from: "#fda4af", to: "#7f1d1d", accent: "#ffe4e6", glow: "#dc2626" },
+      },
+      {
+        id: "consume", title: "Consume", artist: "Chase Atlantic",
+        file: songFile("CONSUME.mp3"),
+        emojis: ["🌙", "🍷", "🖤", "🔥"],
+        palette: { from: "#3f0e13", to: "#1a0508", accent: "#f43f5e", glow: "#be123c" },
+      },
+      {
+        id: "lover-day", title: "Lover Is a Day", artist: "Cuco",
+        file: songFile("LOVER IS A DAY.mp3"),
+        emojis: ["💜", "☁️", "🌈", "🛌"],
+        palette: { from: "#c4b5fd", to: "#4c1d95", accent: "#f5f3ff", glow: "#a78bfa" },
+      },
+      {
+        id: "daylight", title: "Daylight", artist: "David Kushner",
+        file: songFile("DAYLIGHT.mp3"),
+        emojis: ["☀️", "💛", "🌅", "✨"],
+        palette: { from: "#fbbf24", to: "#ea580c", accent: "#fde68a", glow: "#fb923c" },
+      },
+      {
+        id: "220", title: "220", artist: "Dilom",
+        file: songFile("220.mp3"),
+        emojis: ["🪐", "💙", "🛸", "✨"],
+        palette: { from: "#1c3a8a", to: "#0a1a3a", accent: "#7aa6ff", glow: "#3b6bd9" },
+      },
+      {
+        id: "red", title: "I See Red", artist: "Everybody Loves An Outlaw",
+        file: songFile("I SEE RED.mp3"),
+        emojis: ["🔥", "🌹", "💋", "🍷"],
+        palette: { from: "#b91c1c", to: "#450a0a", accent: "#fecaca", glow: "#ef4444" },
+      },
+      {
+        id: "out", title: "Out Of My League", artist: "Fitz and The Tantrums",
+        file: songFile("OUT OF MY LEAGUE.mp3"),
+        emojis: ["🕺", "💙", "🌟", "🎷"],
+        palette: { from: "#86efac", to: "#14532d", accent: "#dbeafe", glow: "#4ade80" },
+      },
+      {
+        id: "sorry", title: "I Love You, I'm Sorry", artist: "Gracie Abrams",
+        file: songFile("I LOVE YOU IM SORRY.mp3"),
+        emojis: ["🥺", "🎀", "🩹", "🤍"],
+        palette: { from: "#e4e4e7", to: "#52525b", accent: "#fda4af", glow: "#a1a1aa" },
+      },
+      {
+        id: "mystery-girl", title: "Mystery Girl", artist: "Housecall",
+        file: songFile("MYSTERY GIRL (REVAMPED).mp3"),
+        emojis: ["🖤", "🔮", "🌙", "💄"],
+        palette: { from: "#f0abfc", to: "#4a044e", accent: "#fdf4ff", glow: "#c026d3" },
+      },
+      {
+        id: "die-for-you", title: "Die For You", artist: "Joji",
+        file: songFile("DIE FOR YOU.mp3"),
+        emojis: ["🌌", "💔", "🔮", "🌙"],
+        palette: { from: "#818cf8", to: "#1e1b4b", accent: "#e0e7ff", glow: "#6366f1" },
+      },
+      {
+        id: "gimme", title: "Gimme Love", artist: "Joji",
+        file: songFile("GIMME LOVE.mp3"),
+        emojis: ["🚀", "❤️", "💫", "🏃"],
+        palette: { from: "#d946ef", to: "#581c87", accent: "#f0abfc", glow: "#c026d3" },
+      },
+      {
+        id: "glimpse", title: "Glimpse of Us", artist: "Joji",
+        file: songFile("GLIMPSE OF US.mp3"),
+        emojis: ["🥀", "🎹", "💔", "🌫️"],
+        palette: { from: "#cbd5e1", to: "#1e293b", accent: "#f1f5f9", glow: "#94a3b8" },
+      },
+      {
+        id: "like-you-do", title: "Like You Do", artist: "Joji",
+        file: songFile("LIKE YOU DO.mp3"),
+        emojis: ["💔", "🌧️", "🤍", "🥀"],
+        palette: { from: "#e0e7ff", to: "#312e81", accent: "#eef2ff", glow: "#818cf8" },
+      },
+      {
+        id: "her", title: "Her", artist: "JVKE",
+        file: songFile("HER.mp3"),
+        emojis: ["👑", "💖", "🌟", "🦋"],
+        palette: { from: "#e879f9", to: "#86198f", accent: "#fae8ff", glow: "#d946ef" },
+      },
+      {
+        id: "falling", title: "This Is What Falling In Love Feels Like", artist: "JVKE",
+        file: songFile("TIWFILFL.mp3"),
+        emojis: ["🎹", "💖", "⏳", "✨"],
+        palette: { from: "#e9d5ff", to: "#581c87", accent: "#fbcfe8", glow: "#c084fc" },
+      },
+      {
+        id: "melting", title: "Melting", artist: "Kali Uchis",
+        file: songFile("MELTING.mp3"),
+        emojis: ["🫠", "🍦", "🤎", "🌙"],
+        palette: { from: "#fecdd3", to: "#9f1239", accent: "#fff1f2", glow: "#fb7185" },
+      },
+      {
+        id: "my-kind", title: "My Kind of Woman", artist: "Mac DeMarco",
+        file: songFile("MY KIND OF WOMAN.mp3"),
+        emojis: ["🎸", "💛", "🌾", "☕"],
+        palette: { from: "#fcd34d", to: "#451a03", accent: "#fffbeb", glow: "#b45309" },
+      },
+      {
+        id: "no-other-heart", title: "No Other Heart", artist: "Mac DeMarco",
+        file: songFile("NO OTHER HEART.mp3"),
+        emojis: ["💚", "🎸", "🌊", "🤍"],
+        palette: { from: "#99f6e4", to: "#134e4a", accent: "#f0fdfa", glow: "#2dd4bf" },
+      },
+      {
+        id: "earrings", title: "Earrings", artist: "Malcolm Todd",
+        file: songFile("EARRINGS.mp3"),
+        emojis: ["💎", "✨", "🤍", "🪞"],
+        palette: { from: "#e0f2fe", to: "#334155", accent: "#f8fafc", glow: "#7dd3fc" },
+      },
+      {
+        id: "loveee", title: "I Loveee", artist: "Malcolm Todd",
+        file: songFile("I LOVEEE.mp3"),
+        emojis: ["💖", "🔥", "😻", "✨"],
+        palette: { from: "#f97316", to: "#9a3412", accent: "#fed7aa", glow: "#fb923c" },
+      },
+      {
+        id: "roommates", title: "Roommates", artist: "Malcolm Todd",
+        file: songFile("ROOMMATES.mp3"),
+        emojis: ["🏠", "☕", "🌙", "💭"],
+        palette: { from: "#fde68a", to: "#78350f", accent: "#fff7e6", glow: "#d97706" },
+      },
+      {
+        id: "my-love", title: "My Love Mine All Mine", artist: "Mitski",
+        file: songFile("MY LOVE MINE.mp3"),
+        emojis: ["🌙", "🤍", "🎹", "⭐"],
+        palette: { from: "#52525b", to: "#18181b", accent: "#e4e4e7", glow: "#a1a1aa" },
+      },
+      {
+        id: "bulls", title: "Bulls In The Bronx", artist: "Pierce The Veil",
+        file: songFile("BULLS IN THE BRONX.mp3"),
+        emojis: ["🤘", "🎸", "🖤", "🌹"],
+        palette: { from: "#52525b", to: "#18181b", accent: "#f4f4f5", glow: "#a1a1aa" },
+      },
+      {
+        id: "best-friend", title: "Best Friend", artist: "Rex Orange County",
+        file: songFile("BEST FRIEND.mp3"),
+        emojis: ["🧡", "🤗", "🎺", "🌻"],
+        palette: { from: "#fdba74", to: "#9a3412", accent: "#fff7ed", glow: "#f97316" },
+      },
+      {
+        id: "happiness", title: "Happiness", artist: "Rex Orange County",
+        file: songFile("HAPPINESS.mp3"),
+        emojis: ["🌤️", "💛", "🕊️", "🌱"],
+        palette: { from: "#fef08a", to: "#a16207", accent: "#fefce8", glow: "#eab308" },
+      },
+      {
+        id: "momento-azul", title: "Momento Azul", artist: "Rojuu",
+        file: songFile("MOMENTO AZUL.mp3"),
+        emojis: ["💙", "🌊", "⭐", "🌌"],
+        palette: { from: "#93c5fd", to: "#1e3a8a", accent: "#dbeafe", glow: "#3b82f6" },
+      },
+      {
+        id: "twilight", title: "Twilight", artist: "Rojuu",
+        file: songFile("TWILIGHT.mp3"),
+        emojis: ["🌆", "💜", "🌙", "✨"],
+        palette: { from: "#fdba74", to: "#312e81", accent: "#fbcfe8", glow: "#a855f7" },
+      },
+      {
+        id: "nobody-new", title: "Nobody New", artist: "The Marías",
+        file: songFile("NOBODY NEW.mp3"),
+        emojis: ["🚶", "🤍", "🌙", "💭"],
+        palette: { from: "#bae6fd", to: "#0c4a6e", accent: "#f0f9ff", glow: "#38bdf8" },
+      },
+      {
+        id: "sienna", title: "Sienna", artist: "The Marías",
+        file: songFile("SIENNA.mp3"),
+        emojis: ["🌅", "🧡", "🍸", "🦋"],
+        palette: { from: "#f472b6", to: "#9d174d", accent: "#fed7aa", glow: "#ec4899" },
+      },
+      {
+        id: "little-death", title: "A Little Death", artist: "The Neighbourhood",
+        file: songFile("A LITTLE DEATH.mp3"),
+        emojis: ["🖤", "🥀", "💋", "🌑"],
+        palette: { from: "#3f3f46", to: "#09090b", accent: "#f87171", glow: "#7f1d1d" },
+      },
+      {
+        id: "afraid", title: "Afraid", artist: "The Neighbourhood",
+        file: songFile("AFRAID.mp3"),
+        emojis: ["🌫️", "🖤", "😔", "🌊"],
+        palette: { from: "#475569", to: "#020617", accent: "#94a3b8", glow: "#1e293b" },
+      },
+      {
+        id: "fallen-star", title: "Fallen Star", artist: "The Neighbourhood",
+        file: songFile("FALLEN STAR.mp3"),
+        emojis: ["⭐", "🌃", "💫", "🖤"],
+        palette: { from: "#94a3b8", to: "#020617", accent: "#fef3c7", glow: "#64748b" },
+      },
+      {
+        id: "flawless", title: "Flawless", artist: "The Neighbourhood",
+        file: songFile("FLAWLESS.mp3"),
+        emojis: ["💎", "🖤", "😏", "🔥"],
+        palette: { from: "#d4d4d8", to: "#18181b", accent: "#fde68a", glow: "#a16207" },
+      },
+      {
+        id: "reflections", title: "Reflections", artist: "The Neighbourhood",
+        file: songFile("REFLECTIONS.mp3"),
+        emojis: ["🪞", "🌊", "💧", "🖤"],
+        palette: { from: "#67e8f9", to: "#083344", accent: "#ecfeff", glow: "#06b6d4" },
+      },
+      {
+        id: "sweater", title: "Sweater Weather", artist: "The Neighbourhood",
+        file: songFile("SWEATER WEATHER.mp3"),
+        emojis: ["🧥", "🌧️", "🖤", "🌲"],
+        palette: { from: "#d1d5db", to: "#1f2937", accent: "#f9fafb", glow: "#9ca3af" },
+      },
+      {
+        id: "wdywfm", title: "W.D.Y.W.F.M?", artist: "The Neighbourhood",
+        file: songFile("W.D.Y.W.F.M_.mp3"),
+        emojis: ["🖤", "❓", "💔", "🌫️"],
+        palette: { from: "#a1a1aa", to: "#09090b", accent: "#f4f4f5", glow: "#52525b" },
+      },
+      {
+        id: "hotel-room", title: "Hotel Room", artist: "—",
+        file: songFile("HOTEL ROOM.mp3"),
+        emojis: ["🛏️", "🌃", "🕯️", "🥂"],
+        palette: { from: "#f9a8d4", to: "#4c1d95", accent: "#fce7f3", glow: "#a855f7" },
+      },
+    ];
+
+    /* =======================================================================
+       2. DATOS — MENSAJES DE LAS BURBUJAS
+       ======================================================================= */
+    const MESSAGES = [
+      "No me caes tan mal xd 👻",
+      "Vania bajita 👑",
+      "Eres una crack 💪",
+      "Nunca cambies 🥰",
+      "Gracias por aguantarme 🤝",
+      "You are cool 😎",
+      "Me alegras el día 🌞",
+      "Sigue brillando 💫",
+      "Por las risas 😂",
+      "Vania power 🚀",
+      "Eres genial ✨",
+      "Tu sonrisa salva 🌸",
+      "Gracias por enseñarme normas APA ❤️",
+      "Sigue siendo así 🌷",
+      "Me encanta tu sonrisa 🌈",
+    ];
+
+    /* =======================================================================
+       3. TEMA — vuelca la paleta de la canción en las variables CSS
+       ======================================================================= */
+    const root = document.documentElement;
+
+    function applyPalette(song) {
+      if (!song) return;
+      const { from, to, accent, glow } = song.palette;
+      root.style.setProperty("--c-from", from);
+      root.style.setProperty("--c-to", to);
+      root.style.setProperty("--c-accent", accent);
+      root.style.setProperty("--c-glow", glow);
+    }
+
+    /* =======================================================================
+       4. AUDIO — envoltorio del <audio> con listeners propios
+       ======================================================================= */
+    class AudioPlayer {
+      audio;
+      current = null;
+      state = "idle";
+      stateListeners = new Set();
+      songListeners = new Set();
+
+      constructor(audio) {
+        this.audio = audio;
+        audio.addEventListener("play",  () => this.setState("playing"));
+        audio.addEventListener("pause", () => this.setState("paused"));
+        audio.addEventListener("ended", () => this.setState("paused"));
+      }
+
+      async play(song) {
+        // Sin argumento = reanudar la actual; con otra canción = cambiar de pista.
+        if (song && song.id !== this.current?.id) {
+          this.current = song;
+          this.audio.src = song.file;
+          this.dispatchSong();
+        }
+        try {
+          await this.audio.play();
+        } catch {
+          // el navegador puede bloquear el autoplay: se ignora
+        }
+      }
+
+      pause() {
+        this.audio.pause();
+      }
+
+      toggle() {
+        if (!this.current) return;
+        if (this.audio.paused) this.play();
+        else this.pause();
+      }
+
+      seek(ratio) {
+        if (Number.isFinite(this.audio.duration)) {
+          this.audio.currentTime = ratio * this.audio.duration;
+        }
+      }
+
+      /* --- suscripciones (devuelven una función para desuscribirse) --- */
+      onState(fn) {
+        this.stateListeners.add(fn);
+        return () => this.stateListeners.delete(fn);
+      }
+
+      onSong(fn) {
+        this.songListeners.add(fn);
+        return () => this.songListeners.delete(fn);
+      }
+
+      onEnded(fn) {
+        this.audio.addEventListener("ended", fn);
+        return () => this.audio.removeEventListener("ended", fn);
+      }
+
+      /* --- emisión --- */
+      setState(next) {
+        if (this.state === next) return;
+        this.state = next;
+        this.stateListeners.forEach((fn) => fn(next));
+      }
+
+      dispatchSong() {
+        this.songListeners.forEach((fn) => fn(this.current));
+      }
+    }
+
+    /* =======================================================================
+       5. REVEAL — momento a pantalla completa al elegir una canción
+       ======================================================================= */
+    const REVEAL_TEXT     = "iloveyoualotsoverymuch";
+    const REVEAL_TYPE_MS  = 70;    // ms por letra
+    const REVEAL_HIDE_MS  = 3400;  // se cierra solo
+    const REVEAL_EMOJIS   = 36;    // emojis que salen disparados
+
+    class Reveal {
+      el         = document.getElementById("reveal");
+      text       = document.getElementById("revealText");
+      songLabel  = document.getElementById("revealSong");
+      emojiLayer = document.getElementById("revealEmojis");
+      typeTimer;
+      hideTimer;
+
+      constructor() {
+        this.el.addEventListener("click", () => this.hide());
+      }
+
+      show(song) {
+        window.clearTimeout(this.typeTimer);
+        window.clearTimeout(this.hideTimer);
+
+        this.text.textContent = "";
+        this.songLabel.textContent =
+          song.artist === "—" ? song.title : `${song.title} · ${song.artist}`;
+        this.emojiLayer.innerHTML = "";
+        this.el.classList.add("is-active");
+        this.el.setAttribute("aria-hidden", "false");
+
+        // máquina de escribir
+        let i = 0;
+        const type = () => {
+          this.text.textContent = REVEAL_TEXT.slice(0, i + 1);
+          i++;
+          if (i < REVEAL_TEXT.length) {
+            this.typeTimer = window.setTimeout(type, REVEAL_TYPE_MS);
+          }
+        };
+        type();
+
+        // explosión radial de emojis
+        for (let n = 0; n < REVEAL_EMOJIS; n++) {
+          const el = document.createElement("span");
+          el.className = "emoji";
+          el.textContent = song.emojis[n % song.emojis.length] ?? "✨";
+
+          const angle = (n / REVEAL_EMOJIS) * Math.PI * 2 + Math.random() * 0.4;
+          const dist  = 200 + Math.random() * 220;
+
+          el.style.setProperty("--tx", `${Math.cos(angle) * dist - 18}px`);
+          el.style.setProperty("--ty", `${Math.sin(angle) * dist - 18}px`);
+          el.style.setProperty("--r",  `${(Math.random() - 0.5) * 720}deg`);
+          el.style.animationDelay = `${Math.random() * 0.25}s`;
+
+          this.emojiLayer.appendChild(el);
+        }
+
+        this.hideTimer = window.setTimeout(() => this.hide(), REVEAL_HIDE_MS);
+      }
+
+      hide() {
+        this.el.classList.remove("is-active");
+        this.el.setAttribute("aria-hidden", "true");
+        window.clearTimeout(this.typeTimer);
+        window.clearTimeout(this.hideTimer);
+      }
+    }
+
+    /* =======================================================================
+       6. UI — lista de canciones + "now playing"
+       Devuelve { setActive, nextOf, prevOf } para que los controles la usen.
+       ======================================================================= */
+    function setupSongList(player, reveal) {
+      const coverEl  = document.getElementById("nowCover");
+      const titleEl  = document.getElementById("nowTitle");
+      const artistEl = document.getElementById("nowArtist");
+      const nowEl    = document.getElementById("now");
+
+      const toggleBtn = document.getElementById("listToggle");
+      const panel     = document.getElementById("listPanel");
+      const overlay   = document.getElementById("listOverlay");
+      const closeBtn  = document.getElementById("listClose");
+      const itemsEl   = document.getElementById("listItems");
+
+      /* --- pintar la lista --- */
+      itemsEl.innerHTML = SONGS.map((song, i) => `
+        <button class="list-item" data-id="${song.id}" type="button">
+          <span class="list-item__emoji" aria-hidden="true">${song.emojis[0] ?? "❤"}</span>
+          <div class="list-item__meta">
+            <p class="list-item__title">${song.title}</p>
+            <p class="list-item__artist">${song.artist}</p>
+          </div>
+          <span class="list-item__num">${String(i + 1).padStart(2, "0")}</span>
         </button>
-      </div>
-    </div>
+      `).join("");
 
-    <!-- BUBBLES (love messages) -->
-    <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+      const items = Array.from(itemsEl.querySelectorAll(".list-item"));
 
-    <!-- AMBIENT EMOJIS (persist while a song plays) -->
-    <div class="ambient" id="ambient" aria-hidden="true"></div>
+      function markActive(id) {
+        for (const el of items) {
+          el.classList.toggle("is-active", el.dataset.id === id);
+        }
+      }
 
-    <!-- SONG LIST PANEL (slide-up modal) -->
-    <div class="list-panel" id="listPanel" aria-hidden="true">
-      <div class="list-panel__overlay" id="listOverlay"></div>
-      <div class="list-panel__inner" role="dialog" aria-label="canciones">
-        <header class="list-panel__head">
-          <h2 class="list-panel__title">elige una</h2>
-          <button class="list-panel__close" id="listClose" aria-label="cerrar">✕</button>
-        </header>
-        <div class="list-panel__items" id="listItems"></div>
-      </div>
-    </div>
+      function renderNowPlaying(song) {
+        if (!song) {
+          coverEl.textContent  = "♥";
+          titleEl.textContent  = "elige una canción";
+          artistEl.textContent = "— silencio —";
+          return;
+        }
+        coverEl.textContent  = song.emojis[0] ?? "❤";
+        titleEl.textContent  = song.title;
+        artistEl.textContent = song.artist;
+      }
 
-    <!-- BIG REVEAL — full-screen moment on song click -->
-    <div class="reveal" id="reveal" aria-hidden="true">
-      <div class="reveal__bg"></div>
-      <div class="reveal__inner">
-        <p class="reveal__text" id="revealText"></p>
-        <p class="reveal__song" id="revealSong"></p>
-      </div>
-      <div class="reveal__emojis" id="revealEmojis"></div>
-    </div>
+      function selectSong(song) {
+        applyPalette(song);
+        markActive(song.id);
+        renderNowPlaying(song);
+        reveal.show(song);
+        player.play(song);
+        closePanel();
+      }
 
-    <audio id="audio" preload="metadata"></audio>
+      items.forEach((el) => {
+        el.addEventListener("click", () => {
+          const song = SONGS.find((s) => s.id === el.dataset.id);
+          if (song) selectSong(song);
+        });
+      });
 
-  </body>
+      player.onState((state) => {
+        nowEl.classList.toggle("is-playing", state === "playing");
+      });
+
+      /* --- abrir / cerrar el panel --- */
+      function openPanel() {
+        panel.classList.add("is-open");
+        panel.setAttribute("aria-hidden", "false");
+        itemsEl.querySelector(".list-item.is-active")?.scrollIntoView({ block: "center" });
+      }
+
+      function closePanel() {
+        panel.classList.remove("is-open");
+        panel.setAttribute("aria-hidden", "true");
+      }
+
+      toggleBtn.addEventListener("click", openPanel);
+      overlay.addEventListener("click", closePanel);
+      closeBtn.addEventListener("click", closePanel);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && panel.classList.contains("is-open")) closePanel();
+      });
+
+      return {
+        setActive(id) {
+          const song = SONGS.find((s) => s.id === id);
+          if (!song) return;
+          applyPalette(song);
+          markActive(id);
+          renderNowPlaying(song);
+        },
+        nextOf(id) {
+          const i = SONGS.findIndex((s) => s.id === id);
+          return SONGS[(i + 1) % SONGS.length];
+        },
+        prevOf(id) {
+          const i = SONGS.findIndex((s) => s.id === id);
+          return SONGS[(i - 1 + SONGS.length) % SONGS.length];
+        },
+      };
+    }
+
+    /* =======================================================================
+       7. CONTROLES — play/pausa, anterior/siguiente, barra de progreso
+       ======================================================================= */
+    function setupControls(player, list) {
+      const playBtn = document.getElementById("play");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      const barEl   = document.getElementById("bar");
+      const fillEl  = document.getElementById("fill");
+
+      if (!playBtn) return;
+
+      // El icono del botón sigue al estado real del <audio>.
+      player.onState((state) => {
+        playBtn.textContent = state === "playing" ? "❚❚" : "▶";
+        playBtn.setAttribute("aria-label", state === "playing" ? "pausar" : "reproducir");
+      });
+
+      playBtn.addEventListener("click", () => {
+        if (player.current) player.toggle();
+      });
+
+      // Cambiar de pista: mismo gesto para el botón y para el fin de canción.
+      function goTo(song) {
+        applyPalette(song);
+        list.setActive(song.id);
+        player.play(song);
+      }
+
+      prevBtn.addEventListener("click", () => {
+        if (!player.current) return;
+        goTo(list.prevOf(player.current.id));
+      });
+
+      nextBtn.addEventListener("click", () => {
+        if (!player.current) return;
+        goTo(list.nextOf(player.current.id));
+      });
+
+      player.onEnded(() => {
+        if (!player.current) return;
+        goTo(list.nextOf(player.current.id));
+      });
+
+      /* --- barra de progreso --- */
+      player.audio.addEventListener("timeupdate", () => {
+        const { currentTime, duration } = player.audio;
+        if (!Number.isFinite(duration) || duration === 0) return;
+        fillEl.style.width = `${(currentTime / duration) * 100}%`;
+      });
+
+      barEl.addEventListener("click", (e) => {
+        const rect  = barEl.getBoundingClientRect();
+        const ratio = (e.clientX - rect.left) / rect.width;
+        player.seek(Math.max(0, Math.min(1, ratio)));
+      });
+    }
+
+    /* =======================================================================
+       8. EFECTO — burbujas de mensajes (siempre activas)
+       ======================================================================= */
+    const BUBBLE_MAX      = 7;
+    const BUBBLE_EVERY_MS = 1800;
+    const BUBBLE_LIFE_MS  = 9000;
+
+    function setupBubbles() {
+      const layer = document.getElementById("bubbles");
+      if (!layer) return;
+
+      const alive = new Set();
+
+      function spawn() {
+        if (alive.size >= BUBBLE_MAX || document.hidden) return;
+
+        const el = document.createElement("div");
+        el.className = "bubble";
+        el.textContent = MESSAGES[Math.floor(Math.random() * MESSAGES.length)] ?? "";
+        el.style.left = `${Math.random() * 70 + 10}vw`;
+        el.style.top  = `${Math.random() * 70 + 15}vh`;
+
+        layer.appendChild(el);
+        alive.add(el);
+
+        setTimeout(() => {
+          alive.delete(el);
+          el.remove();
+        }, BUBBLE_LIFE_MS);
+      }
+
+      setInterval(spawn, BUBBLE_EVERY_MS);
+      setTimeout(spawn, 800);
+    }
+
+    /* =======================================================================
+       9. EFECTO — emojis de ambiente (solo mientras suena algo)
+       ======================================================================= */
+    const AMBIENT_EVERY_MS = 600;
+    const AMBIENT_LIFE_MS  = 9500;
+
+    function setupAmbient(player) {
+      const layer = document.getElementById("ambient");
+      if (!layer) return;
+
+      let emojis = ["❤"];
+      let timer;
+      let isPlaying = false;
+
+      player.onSong((song) => {
+        emojis = song?.emojis.length ? song.emojis : ["❤"];
+      });
+
+      player.onState((state) => {
+        const was = isPlaying;
+        isPlaying = state === "playing";
+        if (isPlaying && !was) start();
+        if (!isPlaying && was) stop();
+      });
+
+      function spawn() {
+        if (!isPlaying || document.hidden) return;
+
+        const el = document.createElement("div");
+        el.className = "ambient-emoji";
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)] ?? "❤";
+        el.style.left              = `${5 + Math.random() * 90}vw`;
+        el.style.fontSize          = `${20 + Math.random() * 14}px`;
+        el.style.animationDuration = `${8 + Math.random() * 4}s`;
+
+        layer.appendChild(el);
+        window.setTimeout(() => el.remove(), AMBIENT_LIFE_MS);
+      }
+
+      function start() {
+        if (timer) return;
+        spawn();
+        timer = window.setInterval(spawn, AMBIENT_EVERY_MS);
+      }
+
+      function stop() {
+        if (timer) window.clearInterval(timer);
+        timer = undefined;
+      }
+    }
+
+    /* =======================================================================
+       10. ARRANQUE
+       ======================================================================= */
+    function typeInto(el, text, speed = 65) {
+      el.textContent = "";
+      let i = 0;
+      const step = () => {
+        el.textContent = text.slice(0, i + 1);
+        i++;
+        if (i < text.length) window.setTimeout(step, speed);
+      };
+      step();
+    }
+
+    function init() {
+      const audio  = document.getElementById("audio");
+      const player = new AudioPlayer(audio);
+      const reveal = new Reveal();
+      const list   = setupSongList(player, reveal);
+
+      setupControls(player, list);
+      setupBubbles();
+      setupAmbient(player);
+
+      // El título de la tarjeta se reescribe cada vez que cambia la canción.
+      const titleEl = document.getElementById("title");
+      player.onSong((song) => {
+        if (!song || !titleEl) return;
+        typeInto(titleEl, "iloveyoualotsoverymuch");
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  </script>
+</body>
 </html>
